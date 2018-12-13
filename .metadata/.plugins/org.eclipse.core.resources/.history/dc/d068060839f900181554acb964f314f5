@@ -1,0 +1,5 @@
+package com.beas;
+
+public class SimpleCORSFilter {
+
+}

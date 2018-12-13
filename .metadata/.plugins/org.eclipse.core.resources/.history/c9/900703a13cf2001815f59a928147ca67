@@ -1,0 +1,13 @@
+package com.beas.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "USERDATA")
+public class User extends BaseDomain{
+	
+	
+
+}

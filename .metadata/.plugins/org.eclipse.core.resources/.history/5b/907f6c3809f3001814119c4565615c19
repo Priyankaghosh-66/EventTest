@@ -1,0 +1,61 @@
+package com.spring.beas.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+import com.spring.beas.dao.BaseDao;
+import com.spring.beas.model.BaseDomain;
+
+public class BaseDaoImpl<T extends BaseDomain> implements BaseDao<T> {
+	 @PersistenceContext
+	    private EntityManager entityManager;
+	    private final Class<T> prototype;
+	    private final String entityName;
+
+	    /**
+	     * @param prototype
+	     * @param entityName
+	     */
+	    public BaseDaoJpa(Class<T> prototype, String entityName) {
+	        this.prototype = prototype;
+	        this.entityName = entityName;
+	    }
+
+	public T save(T entity) {
+		if (entity.getId() != null) {
+            entityManager.merge(entity);
+        } else {
+            entityManager.persist(entity);
+        }
+        return entity;
+
+	}
+
+	public T loadById(Long entityId) throws ObjectRetrievalFailureException {
+		T entity = entityManager.find(prototype, entityId);
+        if (entity == null) {
+        }
+        return entity;
+
+	}
+
+	public List<T> loadAll() {
+		Query query = entityManager.createQuery("select obj from " + entityName + " obj order by obj.id desc");
+        //noinspection unchecked
+//        System.out.println("Entity Name");
+        return query.getResultList();
+
+	}
+
+	public void delete(T entity) {
+		T loadedEntity = loadById(entity.getId());
+        entityManager.remove(loadedEntity);
+
+		
+	}
+
+}

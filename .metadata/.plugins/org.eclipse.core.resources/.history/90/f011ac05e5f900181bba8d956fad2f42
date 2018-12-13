@@ -1,0 +1,23 @@
+package com.beas.security;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class CustomUserDetailsService implements UserDetailsService{
+	
+	private UserRepository users;
+
+	
+	 public CustomUserDetailsService(UserRepository users) {
+	        this.users = users;
+	    }
+
+	@Override
+	public UserDetails loadUserByUsername(String arg0)
+			throws UsernameNotFoundException {
+		return this.users.findByUsername(username)
+	            .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
+	}
+
+}

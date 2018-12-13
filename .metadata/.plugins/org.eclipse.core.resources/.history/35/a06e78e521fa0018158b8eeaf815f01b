@@ -1,0 +1,5 @@
+package com.spring.restDemo.service.dto;
+
+public class UserDto {
+
+}

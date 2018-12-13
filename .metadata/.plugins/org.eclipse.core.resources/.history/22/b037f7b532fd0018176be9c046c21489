@@ -1,0 +1,5 @@
+package com.beas.spring.service;
+
+public class CompanyServiceImpl {
+
+}

@@ -1,0 +1,15 @@
+package com.websystique.springmvc.converter;
+
+import org.springframework.core.convert.converter.Converter;
+
+import com.websystique.springmvc.model.User;
+
+public class RoleToUserProfileConverter implements Converter<Object, User>{
+
+	@Override
+	public User convert(Object arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

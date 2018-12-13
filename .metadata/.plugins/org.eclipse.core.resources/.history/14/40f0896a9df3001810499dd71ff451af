@@ -1,0 +1,5 @@
+package com.spring.beas.service;
+
+public interface UserService {
+
+}

@@ -1,0 +1,89 @@
+<header class="main-header">
+<%@include file="general/scriptTags.jsp"%>
+
+<style>
+.form-control-feedback {
+    padding-top: 20px !important;
+   /*  padding-right: 22px; */
+}
+</style>
+<div class="container">
+	<div class="col-md-10 col-sm-10 col-xs-12">
+	 	<div class="clearfix"></div>
+	</div>
+</div>
+</header>
+<body>
+  <div class="form_sec2 formdatalogin">
+                                <div class="form_sec2 servermessagelogin" style="max-width: 300px;">
+                                </div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+   <div class="form-group">
+   		<div><strong>Username</strong>   
+           	 <form:input path="username"  type="text" class="form-control" name="username" placeholder="Enter username" required=""/>
+    	</div>
+   </div>  
+    <div class="form-group"> 
+    	<div><strong>Password</strong>    
+            <form:input path="password"  type="password" class="form-control"  name="password" placeholder="Enter password" required=""/>
+    	</div>
+    </div>
+  
+   <div class="log-panel">
+      <button type="submit" value="" class="main-button cart-button">LOG IN</button>
+    </div>
+                
+   </div>
+   </div>
+   <script type="text/javascript">
+
+   /* function vendorLogin() {
+
+     
+
+           /* document.getElementById('loginSpinner').style.display = 'block'; */
+           var jsonData = {};
+           jsonData.username = $(".formdatalogin").find("input[name='username']").val();
+           jsonData.password = $(".formdatalogin").find("input[name='password']").val();
+          
+
+          
+          
+//           console.log(jsonData);
+           login(jsonData)
+       
+   }
+ */
+   function login(jsonData) {
+
+	   var jsonData = {};
+       jsonData.username = $(".formdatalogin").find("input[name='username']").val();
+       jsonData.password = $(".formdatalogin").find("input[name='password']").val();
+
+       $.ajax({
+           type: 'post',
+           contentType: 'application/json; charset=utf-8',
+           data: JSON.stringify(jsonData),
+           async: false,
+           url: "./userlogin",
+           success: function (data) {
+               // alert(data.status);
+               if (data.status === 'error') {
+                   var message = $(".errormessage").html();
+                   message = message.replace("[[message]]", data.message);
+                   $(".servermessagelogin").html(message);
+                   /* document.getElementById('loginSpinner').style.display = 'none'; */
+               } else {
+                  /*  document.getElementById('loginSpinner').style.display = 'none'; */
+                   window.location = "./vendor/vendorProfile";
+               }
+           }
+       });
+   }
+
+
+
+
+   </script>
+   </body>

@@ -1,0 +1,38 @@
+package com.spring.beas.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.spring.beas.dto.UserBean;
+import com.spring.beas.service.UserService;
+
+@Controller
+public class HomeController {
+	
+	@Autowired(required = true)
+	UserService service;
+	
+	//index page
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String indexPage(ModelMap modelMap) {
+        return "index";
+    }
+    
+    @RequestMapping(value="/userlogin",method=RequestMethod.POST)
+    public @ResponseBody
+    UserBean userLogin(@RequestBody UserBean userBean,ModelMap modelMap,HttpSession session,HttpServletRequest request){
+    	UserBean bean = service.checkLogin(userBean, session, request);
+    	return bean;
+    }
+
+}

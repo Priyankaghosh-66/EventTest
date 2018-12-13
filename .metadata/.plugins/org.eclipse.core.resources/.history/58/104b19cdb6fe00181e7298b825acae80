@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<definition name="index" extends="common">
+        <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+    </definition>

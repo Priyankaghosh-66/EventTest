@@ -1,0 +1,28 @@
+package com.spring.beas.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spring.beas.dao.UserDAO;
+import com.spring.beas.model.User;
+import com.spring.beas.service.UserService;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	UserDAO userDAO;
+
+	public void createUser(User us) {
+		userDAO.createUser(us);
+		
+	}
+
+	public User getUserByCredentails(User us) {
+		User user=userDAO.getUserByCredentials(us.getUser_name(), us.getUser_password());
+		return user;
+	}
+
+}

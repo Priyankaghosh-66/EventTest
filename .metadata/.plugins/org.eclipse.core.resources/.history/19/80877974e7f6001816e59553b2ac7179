@@ -1,0 +1,11 @@
+package com.spring.beas.dto;
+
+import com.spring.beas.model.UserRole;
+
+public class RegisterDTO {
+	
+	private User user;
+	
+	private UserRole userRole;
+
+}

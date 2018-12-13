@@ -1,0 +1,23 @@
+#Event banner and splash image path
+file.upload.base.upload.path=D://UploadFile
+
+#Qrcode image path
+file.upload.base.upload.path.qrcode=D://UploadFile/QRCode
+
+
+#Excel upload path for participant list
+file.upload.excel=D:/ExcelFileUpload/
+
+#playstore link to download the app
+playstore.app.url=https://play.google.com/store/apps/details?id=com.webel.happeningbengal
+
+#footer text
+footer.text.upper.html=Copyright (c) 2018 West Bengal Electronics Industry Development Corporation Limited,<br>Designed & Developed by <a href="https://www.webel-india.com/index.html" class="future-text" target="_blank">Webel</a>
+	
+#mail setup details
+mail.username=
+mail.password=
+mail.smtp.host=
+mail.smtp.port=
+
+

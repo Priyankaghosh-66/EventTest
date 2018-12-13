@@ -1,0 +1,11 @@
+package com.spring.beas.dao;
+
+import java.util.List;
+
+import com.spring.beas.model.UserData;
+
+public interface UserDataDao extends BaseDao<UserData>{
+	
+	 public List<UserData> FindAdminByEmailPhone(String uname, String pass);
+
+}

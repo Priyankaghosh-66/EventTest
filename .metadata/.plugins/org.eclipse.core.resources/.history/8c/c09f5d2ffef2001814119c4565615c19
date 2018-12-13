@@ -1,0 +1,44 @@
+package com.spring.beas.service.impl;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spring.beas.dao.UserDao;
+import com.spring.beas.dto.UserBean;
+import com.spring.beas.model.User;
+import com.spring.beas.service.UserService;
+import com.spring.beas.util.BeasConstant;
+
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	UserDao userdao;
+	@Transactional
+	public UserBean checkLogin(UserBean user, HttpSession session,
+			HttpServletRequest request) {
+		UserBean bean = new UserBean();
+		List<User> userData = userdao.findUserByUname(user.getName(), user.getPassword());
+		if(userData.size() != 0){
+			for(User us:userData){
+			UserBean userBean = new UserBean();
+			userBean.setName(us.getName());
+			userBean.setPassword(us.getPassword());
+			userBean.setIsLogin(Boolean.TRUE);
+			}
+			bean.setStatus(BeasConstant.SUCCESS);
+			bean.setMessage("Successfully retrieved data");
+		}else{
+			System.out.println("not valid customer.");
+			bean.setStatus(BeasConstant.ERROR);
+			bean.setMessage("No data foubd");
+			
+		}
+		return bean;
+	}
+
+}

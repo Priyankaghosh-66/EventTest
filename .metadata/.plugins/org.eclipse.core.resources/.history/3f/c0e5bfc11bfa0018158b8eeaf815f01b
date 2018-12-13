@@ -1,0 +1,5 @@
+package com.spring.restDemo.initializer;
+
+public class SecurityWebApplicationInitializer {
+
+}

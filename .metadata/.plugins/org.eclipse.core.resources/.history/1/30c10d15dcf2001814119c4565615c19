@@ -1,0 +1,50 @@
+package com.spring.beas.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+import com.spring.beas.dao.BaseDao;
+import com.spring.beas.model.BaseDomain;
+
+public class BaseDaoImpl <T extends BaseDomain> implements BaseDao<T>{
+	
+	@PersistenceContext
+    private EntityManager entityManager;
+    private final Class<T> prototype;
+    private final String entityName;
+    
+    public BaseDaoImpl(Class<T> prototype, String entityName) {
+        this.prototype = prototype;
+        this.entityName = entityName;
+    }
+
+
+	@Override
+	public T save(T entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T loadById(Long entityId) throws ObjectRetrievalFailureException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<T> loadAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(T entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

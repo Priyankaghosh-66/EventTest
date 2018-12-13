@@ -1,0 +1,24 @@
+
+<%@page import="java.util.Properties"%>
+<%-- <%@page import="com.event.management.util.CommonUtility"%> --%>
+<div class="container">
+<footer>
+ <div class="footer">
+ <p class="owned-text">
+ <%-- <%
+ Properties prop = new Properties();
+	String resourceName = "common.properties"; 
+	String footerTextUpper=null;
+	try {
+		prop=CommonUtility.loadPropertyFile(resourceName);
+		footerTextUpper=prop.getProperty("footer.text.upper.html");
+	}catch(Exception e){
+		System.out.println("Exception "+e);
+	}
+ 
+ %> --%>
+ <%-- <% out.print(footerTextUpper); %>   --%>
+ </p>
+</div>
+</footer>
+</div>

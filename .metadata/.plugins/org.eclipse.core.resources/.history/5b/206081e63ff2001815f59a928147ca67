@@ -1,0 +1,5 @@
+package com.beas.dao.jpa;
+
+public class BaseDaoJpa {
+
+}

@@ -1,0 +1,53 @@
+package com.demo.business.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.business.UserService;
+import com.demo.dao.UserDao;
+import com.demo.domain.User;
+import com.demo.dto.UserBean;
+
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	UserDao userDao;
+	@Override
+	public List<UserBean> loadCustomerList(User user1) {
+		
+        List<UserBean> custList = new ArrayList<UserBean>();
+        String cityName;
+//        if (customers != null) {
+        List<User> list = userDao.loadAll();
+        if (list.size() != 0) {
+            for (User user : list) {
+                UserBean userBean = new UserBean();
+                userBean.setId(user.getId());
+                userBean.setUsername(user.getUsername());
+                userBean.setAddress(user.getAddress());
+                userBean.setPhone(user.getPhoneNumber());
+
+                custList.add(userBean);
+
+            }
+            /*bean.setCustomersBeans(custList);*/
+            bean.setMessage("Customer List Loaded successfully");
+            bean.setStatus(JihuzurConstant.SUCCESS);
+            bean.setTotalcount(custList.size());
+        }
+//            else {
+//                bean.setStatus(JihuzurConstant.ERROR);
+//                bean.setMessage("You are not authorized to access");
+//            }
+//
+//        }
+        return bean;
+
+	}
+
+	
+	
+
+}

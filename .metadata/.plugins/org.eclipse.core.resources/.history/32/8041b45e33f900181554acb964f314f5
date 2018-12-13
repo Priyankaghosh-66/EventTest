@@ -1,0 +1,5 @@
+package com.beas.util;
+
+public class TokenUtil {
+
+}

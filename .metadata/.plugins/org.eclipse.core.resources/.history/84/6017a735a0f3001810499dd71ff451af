@@ -1,0 +1,49 @@
+package com.spring.beas.controller;
+
+import org.apache.xmlbeans.impl.xb.xsdschema.Attribute.Use;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.beas.model.User;
+import com.spring.beas.service.UserService;
+
+@Controller
+public class UserController {
+	@Autowired
+	UserService userService;
+	
+	@RequestMapping(value="register",method=RequestMethod.GET)
+	public ModelAndView viewRegister(@ModelAttribute User user){
+		return new ModelAndView("register");
+	}
+	
+	@RequestMapping(value="register",method=RequestMethod.POST)
+	public ModelAndView createUser(@ModelAttribute User user){
+		userService.createUser(user);
+		return new ModelAndView("login");
+	}
+	
+	@RequestMapping(value="login",method=RequestMethod.GET)
+	public ModelAndView viewLogin(@ModelAttribute User user){
+		return new ModelAndView("login");
+	}
+	
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public ModelAndView processLogin(@ModelAttribute User us){
+		User user = userService.getUserByCredentails(us);
+		ModelAndView modelAndView = null;
+		if(user == null){
+			modelAndView = new ModelAndView("login");
+			modelAndView.addObject("result", "You have given wrong credentials");
+		}else{
+			modelAndView = new ModelAndView("home");
+			modelAndView.addObject("result", "You have successfully logge in");
+		}
+		return modelAndView;
+	}
+
+}

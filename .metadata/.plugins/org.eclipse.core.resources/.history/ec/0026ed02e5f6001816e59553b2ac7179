@@ -1,0 +1,39 @@
+package com.spring.beas.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spring.beas.dao.UserDAO;
+import com.spring.beas.model.User;
+import com.spring.beas.service.UserService;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	UserDAO userDao;
+
+	public void createUser(User us) {
+		String pwd = us.getUser_password();
+		String encryptedPwd = hashPassword(pwd);
+		us.setUser_password(encryptedPwd);
+		userDao.createUser(us);
+		
+	}
+	
+	private String hashPassword(String str){
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String pass = bCryptPasswordEncoder.encode(str);
+		return pass;
+	}
+
+	public User getUserByCredentails(User us) {
+		User user=userDao.getUserByCredentials(us.getUser_name(), us.getUser_password());
+		return user;
+	}
+
+}

@@ -1,0 +1,44 @@
+package com.spring.beas.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.Query;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.spring.beas.dao.UserDao;
+import com.spring.beas.model.User;
+
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
+
+	public UserDaoImpl(Class<User> prototype, String entityName) {
+		super(prototype, entityName);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	private static final Logger logger=LoggerFactory.getLogger(UserDao.class);
+	@Autowired
+	private SessionFactory sessionFactory;
+
+
+	/*public List<User> FindAdminByEmailPhone(String uname, String pass) {
+		Query q =  getEntityManager().createQuery("SELECT us FROM user AS us WHERE us.user_name =:userName AND us.user_password = :pass");
+        q.setParameter("userName", uname);
+        q.setParameter("pass", pass);
+        return q.getResultList();
+	}
+*/
+	public User findUserByUname(int id) {
+		Session session=this.sessionFactory.getCurrentSession();
+		User u=(User) session.load(User.class, new Integer(id));
+		logger.info("User Loaded successfully,User Details="+u);
+		// TODO Auto-generated method stub
+		return u;
+	}
+
+}

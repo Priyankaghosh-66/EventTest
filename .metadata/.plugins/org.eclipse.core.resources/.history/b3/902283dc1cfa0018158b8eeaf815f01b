@@ -1,0 +1,5 @@
+package com.spring.restDemo.persist.entity;
+
+public class User {
+
+}

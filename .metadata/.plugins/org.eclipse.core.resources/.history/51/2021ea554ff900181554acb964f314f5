@@ -1,0 +1,5 @@
+package com.token.spring.controller;
+
+public class DemoController {
+
+}

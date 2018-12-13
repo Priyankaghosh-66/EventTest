@@ -1,0 +1,27 @@
+package com.spring.beas.service.impl;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.spring.beas.dao.UserDao;
+import com.spring.beas.dto.UserBean;
+import com.spring.beas.model.User;
+import com.spring.beas.service.UserService;
+
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	UserDao userdao;
+
+	public UserBean checkLogin(UserBean user, HttpSession session,
+			HttpServletRequest request) {
+		UserBean userBean = new UserBean();
+		List<User> userData = 
+		return null;
+	}
+
+}

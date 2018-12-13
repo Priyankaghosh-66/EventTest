@@ -1,0 +1,5 @@
+package com.beas.security.transfer;
+
+public class JwtUserDto {
+
+}

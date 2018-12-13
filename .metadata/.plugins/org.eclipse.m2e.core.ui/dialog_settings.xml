@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardArchetypePage">
+		<item value="All Catalogs" key="catalog"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="MavenCheckoutLocationPage">
+		<list key="scmUrl">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="issueManagementUrl">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.wizards.CustomArchetypeDialog">
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="C:\Users\Tajinder\Downloads\SpringSecurityOAuth2Example"/>
+			<item value="D:\priyanka_wrkspc\restTest"/>
+			<item value="D:\priyanka_wrkspc\RestServ"/>
+			<item value="D:\priyanka_wrkspc\test"/>
+			<item value="D:\priyanka_wrkspc\started"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="groupId">
+			<item value="spring"/>
+		</list>
+		<list key="package">
+			<item value="spring.JpaExampleOfSpring"/>
+			<item value="spring.com.JpaExample"/>
+			<item value="spring"/>
+			<item value="spring.SpringBootOauth"/>
+			<item value="spring.sampleJavaConfigLogin"/>
+			<item value="spring.RestTokenBackEnd"/>
+			<item value="spring.tokenGenerator"/>
+			<item value="spring.restTest"/>
+			<item value="spring.annotationex"/>
+			<item value="spring.loginPart"/>
+			<item value="spring.empty"/>
+			<item value="spring.de"/>
+			<item value="spring.test"/>
+			<item value="spring.trrr"/>
+			<item value="spring.tree"/>
+		</list>
+		<list key="artifactId">
+			<item value="JpaExampleOfSpring"/>
+			<item value="com.JpaExample"/>
+			<item value="SpringBootOauth"/>
+			<item value="sampleJavaConfigLogin"/>
+			<item value="RestTokenBackEnd"/>
+			<item value="tokenGenerator"/>
+			<item value="restTest"/>
+			<item value="annotationex"/>
+			<item value="loginPart"/>
+			<item value="empty"/>
+			<item value="de"/>
+			<item value="test"/>
+			<item value="trrr"/>
+			<item value="tree"/>
+			<item value="dre"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\Tajinder\Desktop\ET"/>
+			<item value="C:\Users\Tajinder\Downloads\SpringSecurityOAuth2Example"/>
+			<item value="C:\Users\Tajinder\Desktop\SpringSecurityOAuth2Example"/>
+			<item value="D:\EventManagement\pentaBase"/>
+			<item value="D:\EventManagement\EventManagementApp"/>
+			<item value="C:\Users\Tajinder\Downloads\SpringMVCHibernateWithSpringSecurityExample\SpringMVCHibernateWithSpringSecurityExample"/>
+			<item value="C:\Users\Tajinder\Desktop\loginPart"/>
+			<item value="D:\priyanka_wrkspc\restTest"/>
+			<item value="D:\EventManagement\pentaBaseClient"/>
+			<item value="C:\Users\Tajinder\Downloads\spring-security-login-form-database"/>
+			<item value="C:\Users\Tajinder\Downloads\springhibernatexmlintegration"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+</section>

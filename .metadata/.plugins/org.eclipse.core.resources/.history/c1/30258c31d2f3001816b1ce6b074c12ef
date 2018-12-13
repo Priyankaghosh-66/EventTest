@@ -1,0 +1,50 @@
+package com.spring.beas.dao.impl;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.spring.beas.dao.UserDAO;
+import com.spring.beas.model.User;
+
+
+@Repository
+public class UserDAOImpl implements UserDAO{
+	
+	@Autowired
+	SessionFactory sessionFactory;
+
+	public void createUser(User user) {
+		Session session = sessionFactory.openSession();
+		session.save(user);
+		session.close();
+		
+	}
+
+	public User getUserByCredentials(String name, String pass) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = null;
+		User us = null;
+		try{
+			criteria = session.createCriteria(User.class);
+			Criterion criterion1 = Restrictions.eq("user_name", name);
+			Criterion criterion2 = Restrictions.eq("user_password", pass);
+			criteria.add(criterion1);
+			criteria.setMaxResults(1);
+			us = (User) criteria.uniqueResult();
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}finally{
+			if(session != null){
+				session.close();
+			}
+		}
+		return us;
+	}
+
+}

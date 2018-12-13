@@ -1,0 +1,5 @@
+package com.token.spring.web;
+
+public class OAuth2RedirectorServlet {
+
+}

@@ -1,0 +1,5 @@
+package com.beas.spring.config;
+
+public class HibernateConfiguration {
+
+}

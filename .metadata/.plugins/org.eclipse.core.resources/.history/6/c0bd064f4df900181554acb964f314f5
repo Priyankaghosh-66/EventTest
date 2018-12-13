@@ -1,0 +1,5 @@
+package com.token.spring.web;
+
+public class WebAppOAuth2ResourceDetails {
+
+}

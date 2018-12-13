@@ -1,0 +1,13 @@
+message.source.basename=i18n/messages
+
+#DB properties:
+db.driver=com.mysql.jdbc.Driver
+db.url=jdbc:mysql://192.168.1.8:3306/demo
+db.username=root
+db.password=beasroot123
+
+#Hibernate Configuration:
+hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+#turn off the hib,use the log4jdbc instead.
+hibernate.show_sql=false
+entitymanager.packages.to.scan=com.spring.model

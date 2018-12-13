@@ -1,0 +1,5 @@
+package com.spring.beas.util;
+
+public class BeasConstant {
+
+}

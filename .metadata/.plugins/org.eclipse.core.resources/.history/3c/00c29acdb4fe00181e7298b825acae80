@@ -1,0 +1,64 @@
+package com.demo.business.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.business.UserService;
+import com.demo.dao.UserDao;
+import com.demo.domain.User;
+import com.demo.dto.UserBean;
+
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	UserDao userDao;
+	@Override
+	public UserBean loadCustomerList(User user1) {
+		
+        List<UserBean> custList = new ArrayList<UserBean>();
+        String cityName;
+//        if (customers != null) {
+        List<User> list = userDao.loadAll();
+        if (list.size() != 0) {
+            for (User user : list) {
+                UserBean custBean = new UserBean();
+                custBean.setCustomerId(customers1.getId());
+                custBean.setFullName(customers1.getFullName().toUpperCase());
+                custBean.setDob(customers1.getDob());
+                custBean.setCityId(customers1.getCityId().getId());
+                custBean.setCityName(customers1.getCityId().getCityName().toUpperCase());
+                custBean.setEmailId(customers1.getEmailId().toUpperCase());
+                custBean.setEmailVerifyCode(customers1.getEmailVerifyCode());
+                custBean.setPassword(customers1.getPassword());
+                custBean.setEmailVerifyStatus(customers1.getMobileVerifyStatus());
+                custBean.setMobileNo(customers1.getMobileNo());
+                custBean.setMobileVerifyCode(customers1.getMobileVerifyCode());
+                custBean.setMobileVerifyStatus(customers1.getMobileVerifyStatus());
+                custBean.setIsBlocked(customers1.isIsBlocked());
+                custBean.setIsDelete(customers1.getIsDelete());
+                custBean.setCreateDocUtcstr(sdf.format(customers1.getCreateUtc()));
+
+                custList.add(custBean);
+
+            }
+            bean.setCustomersBeans(custList);
+            bean.setMessage("Customer List Loaded successfully");
+            bean.setStatus(JihuzurConstant.SUCCESS);
+            bean.setTotalcount(custList.size());
+        }
+//            else {
+//                bean.setStatus(JihuzurConstant.ERROR);
+//                bean.setMessage("You are not authorized to access");
+//            }
+//
+//        }
+        return bean;
+
+	}
+
+	
+	
+
+}

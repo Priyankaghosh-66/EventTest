@@ -1,0 +1,5 @@
+package com.spring.beas.dao;
+
+public interface BaseDao {
+
+}

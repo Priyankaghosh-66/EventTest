@@ -1,0 +1,11 @@
+package com.spring.beas.service;
+
+import com.spring.beas.model.User;
+
+public interface UserService {
+	
+	public void createUser(User us);
+	
+	public User getUserByCredentails(User us);
+
+}

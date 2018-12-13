@@ -1,0 +1,5 @@
+package com.beas.model;
+
+public class Greeting {
+
+}

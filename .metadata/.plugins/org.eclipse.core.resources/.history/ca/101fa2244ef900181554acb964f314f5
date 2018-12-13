@@ -1,0 +1,6 @@
+package com.token.spring.web;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+
+public class WebAppOAuth2ResourceDetails extends AuthorizationCodeResourceDetails{
+
+}

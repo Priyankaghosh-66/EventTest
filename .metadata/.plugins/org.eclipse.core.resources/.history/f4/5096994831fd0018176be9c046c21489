@@ -1,0 +1,5 @@
+package com.beas.spring.model;
+
+public class Employee {
+
+}

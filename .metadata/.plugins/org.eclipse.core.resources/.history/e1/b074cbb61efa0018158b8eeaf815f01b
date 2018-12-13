@@ -1,0 +1,5 @@
+package com.spring.restDemo.security;
+
+public class RestAuthenticationSuccessHandler {
+
+}

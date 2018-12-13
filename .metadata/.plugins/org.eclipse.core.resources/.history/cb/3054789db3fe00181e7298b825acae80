@@ -1,0 +1,10 @@
+package com.demo.business;
+
+import com.demo.domain.User;
+import com.demo.dto.UserBean;
+
+public interface UserService {
+	
+	
+
+}

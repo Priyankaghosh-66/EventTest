@@ -1,0 +1,11 @@
+package com.spring.restDemo.persist.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.spring.restDemo.persist.entity.User;
+
+public interface UserRepo extends JpaRepository<User, Long>{
+	
+	User findByLogin(String login);
+
+}

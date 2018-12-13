@@ -1,0 +1,51 @@
+package com.spring.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.spring.model.Shop;
+import com.spring.repository.ShopRepository;
+import com.spring.service.ShopService;
+@Service
+public class ShopServiceImpl implements ShopService{
+	
+	@Resource
+	private ShopRepository shopRepository;
+
+	@Override
+	public Shop create(Shop shop) {
+		Shop createdShop = shop;
+		return shopRepository.save(createdShop);
+	}
+
+	@Override
+	public Shop delete(int id) throws ShopNotFound {
+Shop deletedShop = shopRepository.findOne(id);
+		
+		if (deletedShop == null)
+			throw new ShopNotFound();
+		
+		shopRepository.delete(deletedShop);
+		return deletedShop;
+	}
+
+	@Override
+	public List<Shop> findAll() {
+		return shopRepository.findAll();
+	}
+
+	@Override
+	public Shop update(Shop shop) throws ShopNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Shop findById(int id) {
+		return shopRepository.findOne(id);
+	}
+
+}

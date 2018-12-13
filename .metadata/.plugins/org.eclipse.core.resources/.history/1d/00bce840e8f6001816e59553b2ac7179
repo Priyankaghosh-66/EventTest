@@ -1,0 +1,30 @@
+package com.spring.beas.dto;
+
+import com.spring.beas.model.User;
+import com.spring.beas.model.UserRole;
+
+public class RegisterDTO {
+	
+	private User user;
+	
+	private UserRole userRole;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+	
+	
+
+}

@@ -1,0 +1,27 @@
+package com.spring.beas.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.Query;
+
+import com.spring.beas.dao.UserDataDao;
+import com.spring.beas.model.User;
+
+
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDataDao{
+
+	public UserDaoImpl() {
+		super(User.class, "userData");
+		
+	}
+
+	@Override
+	public List<User> FindAdminByEmailPhone(String uname, String pass) {
+		Query query = getEntityManager().createQuery("SELECT us FROM user AS us WHERE us.user_name =:userName AND us.user_password =:pass");
+        query.setParameter("userName", uname);
+        query.setParameter("pass", pass);
+        return query.getResultList();
+
+	}
+
+}

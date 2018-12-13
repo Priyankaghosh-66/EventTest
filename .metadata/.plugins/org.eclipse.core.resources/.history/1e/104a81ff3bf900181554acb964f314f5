@@ -1,0 +1,14 @@
+package com.beas;
+
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+public class WebMvcConfig extends WebMvcConfigurerAdapter{
+	
+	public void addViewControllers(ViewControllerRegistry registry){
+		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/welcome").setViewName("welcome");
+		registry.addViewController("/").setViewName("login");
+	}
+
+}

@@ -1,0 +1,7 @@
+package com.beas.spring.config.profile.annotation;
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Profile("dev")
+public interface Dev {
+
+}

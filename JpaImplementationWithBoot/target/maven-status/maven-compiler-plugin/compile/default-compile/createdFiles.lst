@@ -1,0 +1,10 @@
+com\demo\domain\BaseDomain.class
+com\demo\controller\UserController.class
+com\demo\dao\UserDao.class
+com\demo\business\UserService.class
+com\demo\dao\jpa\BaseDaoJpa.class
+com\demo\domain\User.class
+com\demo\dto\UserBean.class
+com\demo\dao\jpa\UserDaoJpa.class
+com\demo\business\impl\UserServiceImpl.class
+com\demo\dao\BaseDao.class

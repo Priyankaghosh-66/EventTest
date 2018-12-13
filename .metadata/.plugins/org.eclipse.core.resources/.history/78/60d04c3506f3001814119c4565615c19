@@ -1,0 +1,36 @@
+package com.spring.beas.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="user")
+public class User extends BaseDomain{
+	
+	 private static final long serialVersionUID = 1L;
+	 
+	 @Lob
+	    @Column(name = "user_name")
+	    private String user_name;
+	    @Lob
+	    @Column(name = "user_password")
+	    private String user_password;
+		public String getUser_name() {
+			return user_name;
+		}
+		public void setUser_name(String user_name) {
+			this.user_name = user_name;
+		}
+		public String getUser_password() {
+			return user_password;
+		}
+		public void setUser_password(String user_password) {
+			this.user_password = user_password;
+		}
+	    
+	    
+
+}

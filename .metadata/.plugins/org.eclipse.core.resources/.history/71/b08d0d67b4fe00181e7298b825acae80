@@ -1,0 +1,20 @@
+package com.demo.business.impl;
+
+import java.util.List;
+
+import com.demo.business.UserService;
+import com.demo.domain.User;
+import com.demo.dto.UserBean;
+
+public class UserServiceImpl implements UserService{
+
+	@Override
+	public UserBean loadCustomerList(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+}

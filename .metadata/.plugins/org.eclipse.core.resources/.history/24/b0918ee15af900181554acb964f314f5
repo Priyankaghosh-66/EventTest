@@ -1,0 +1,5 @@
+package com.beas.config;
+
+public class SecurityConfig {
+
+}

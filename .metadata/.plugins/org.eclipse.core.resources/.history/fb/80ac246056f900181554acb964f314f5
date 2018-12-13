@@ -1,0 +1,21 @@
+oauth2.client.id=com.ohadr.webapp
+oauth2.client.secret=4EteYuPResuM
+# Set autoHashSecret to true only on production.
+oauth2.client.autoHashSecret=false
+
+
+
+com.ohadr.oauth2.db.username=root
+com.ohadr.oauth2.db.password=beasroot123
+com.ohadr.oauth2.db.host=192.168.1.8
+com.ohadr.oauth2.db.port=3306
+com.ohadr.oauth2.db.schema=testrest
+
+
+
+demoUrl=http://localhost:8080/oauth2-resource-server/welcome
+
+#oauth2.client.accessTokenUri=https://ohadr.com:8443/oauth2-auth-server/oauth/token
+#oauth2.client.userAuthorizationUri=https://ohadr.com:8443/oauth2-auth-server/oauth/authorize
+oauth2.client.accessTokenUri="http://localhost:8080/oauth2-auth-server/oauth/token"
+oauth2.client.userAuthorizationUri=http://localhost:8080/oauth2-auth-server/oauth/authorize

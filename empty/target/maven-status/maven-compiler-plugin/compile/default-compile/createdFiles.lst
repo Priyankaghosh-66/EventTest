@@ -1,0 +1,8 @@
+com\beas\dao\UserDao.class
+com\beas\domain\Userdata.class
+com\beas\controller\HomeController.class
+com\beas\domain\BaseDomain.class
+com\beas\dto\UserdataBean.class
+com\beas\dao\BaseDao.class
+com\beas\dao\jpa\BaseDaoJpa.class
+com\beas\dao\jpa\UserDaoJpa.class

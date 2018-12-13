@@ -1,0 +1,12 @@
+package com.spring.beas.service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.spring.beas.dto.UserBean;
+
+public interface UserService {
+	
+	public UserBean checkLogin(UserBean user,HttpSession session,HttpServletRequest request);
+
+}

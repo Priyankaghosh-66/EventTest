@@ -1,0 +1,5 @@
+package com.token.spring;
+
+public class OAuth2ClientProperties {
+
+}

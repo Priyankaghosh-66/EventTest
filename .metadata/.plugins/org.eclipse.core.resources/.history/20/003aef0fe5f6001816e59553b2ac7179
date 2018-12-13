@@ -1,0 +1,11 @@
+package com.spring.beas.dao;
+
+import com.spring.beas.model.User;
+
+public interface UserDAO {
+	
+	public void createUser(User user);
+	
+	public User getUserByCredentials(String name, String pass);
+
+}

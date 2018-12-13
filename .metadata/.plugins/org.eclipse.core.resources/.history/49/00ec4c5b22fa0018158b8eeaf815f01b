@@ -1,0 +1,5 @@
+package com.spring.restDemo.web.controller;
+
+public class UserController {
+
+}

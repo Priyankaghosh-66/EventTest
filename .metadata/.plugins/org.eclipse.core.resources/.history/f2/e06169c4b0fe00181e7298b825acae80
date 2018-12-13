@@ -1,0 +1,10 @@
+package com.demo.dto;
+
+public class AdminBean {
+	
+	private Long id;
+	private String username;
+	private String address;
+	private String phone;
+
+}

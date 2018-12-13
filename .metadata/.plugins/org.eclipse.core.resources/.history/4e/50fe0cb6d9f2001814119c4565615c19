@@ -1,0 +1,5 @@
+package com.spring.beas.model;
+
+public class BaseDomain {
+
+}

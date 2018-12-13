@@ -1,0 +1,26 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE HTML>
+<html>
+    <style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+    <head>
+        <center><h1>JIHUZUR</h1></center>
+    </head>
+    <body>
+    <center> <a href="./customerIndex" class="button">CUSTOMER LOGIN</a>
+        <a href="./VendorLogin" class="button">VENDOR LOGIN</a> 
+        <a href="./adminIndex" class="button">ADMIN LOGIN</a> </center>
+    </body>
+</html>

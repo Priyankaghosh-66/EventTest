@@ -1,0 +1,5 @@
+package com.beas.domain;
+
+public class BaseDomain {
+
+}

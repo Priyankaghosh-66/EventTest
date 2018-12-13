@@ -1,0 +1,7 @@
+jdbc.driverClassName = com.mysql.jdbc.Driver
+jdbc.url = jdbc\:mysql\://192.168.1.8\:3306/websytique
+jdbc.username = root
+jdbc.password = beasroot123
+hibernate.dialect = org.hibernate.dialect.MySQLDialect
+hibernate.show_sql = true
+hibernate.format_sql = true

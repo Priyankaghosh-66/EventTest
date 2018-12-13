@@ -1,0 +1,9 @@
+package com.demo.business;
+
+import com.demo.dto.UserBean;
+
+public interface UserService {
+	
+	public UserBean loadCustomerList(User user);
+
+}

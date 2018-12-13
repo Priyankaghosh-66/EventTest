@@ -1,0 +1,33 @@
+package com.spring.validation;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import com.spring.model.Shop;
+
+@Component
+public class ShopValidator implements Validator{
+	
+	private final static String EMPLOYEES_NUMBER = "emplNumber";
+
+	@Override
+	public boolean supports(Class<?> arg0) {
+		return Shop.class.isAssignableFrom(arg0);
+	}
+
+	@Override
+	public void validate(Object arg0, Errors arg1) {
+Shop shop = (Shop) arg0;
+		
+		Integer emplNumber = shop.getEmplNumber();
+		
+		ValidationUtils.rejectIfEmpty(arg1, "name", "shop.name.empty");
+		ValidationUtils.rejectIfEmpty(arg1, EMPLOYEES_NUMBER, "shop.emplNumber.empty");
+		
+		if (emplNumber != null && emplNumber < 1)
+			arg1.rejectValue(EMPLOYEES_NUMBER, "shop.emplNumber.lessThenOne");
+		
+	}
+
+}
