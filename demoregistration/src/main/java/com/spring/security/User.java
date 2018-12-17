@@ -1,0 +1,145 @@
+package com.spring.security;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+
+public class User extends org.springframework.security.core.userdetails.User{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4012899262402006560L;
+	
+	private Long id;
+	private String salutation;
+	private String fullname;
+	private String email;
+	private String mobileno;
+	private String gender;
+	private String password;
+	private Date birthday;
+	private String token;
+	private Integer isValidUser=0;
+	private String validToken;
+	List<GrantedAuthority> grantedAuths ;
+
+	public User(String email,String password,
+			Collection<? extends GrantedAuthority> authorities, String mobileno, String fullname,String salutation,String gender,Date birthday,String token,int isValidUser,List<GrantedAuthority> grantedAuths) {
+		super(email, password, authorities);
+		this.salutation=salutation;
+		this.mobileno=mobileno;
+		this.fullname=fullname;
+		this.email=email;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.password = password;
+		this.token = token;
+		this.isValidUser = isValidUser;
+		this.validToken = validToken;
+	
+
+}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSalutation() {
+		return salutation;
+	}
+
+	public void setSalutation(String salutation) {
+		this.salutation = salutation;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobileno() {
+		return mobileno;
+	}
+
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	
+	public String getValidToken() {
+		return validToken;
+	}
+
+	public void setValidToken(String validToken) {
+		this.validToken = validToken;
+	}
+
+	public List<GrantedAuthority> getGrantedAuths() {
+		return grantedAuths;
+	}
+
+	public void setGrantedAuths(List<GrantedAuthority> grantedAuths) {
+		this.grantedAuths = grantedAuths;
+	}
+
+	public Integer getIsValidUser() {
+		return isValidUser;
+	}
+
+	public void setIsValidUser(Integer isValidUser) {
+		this.isValidUser = isValidUser;
+	}
+	
+	
+	
+}

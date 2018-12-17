@@ -1,0 +1,40 @@
+package com.spring.dao.impl;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import com.spring.dao.UserProDAO;
+import com.spring.model.UserProfile;
+
+public class UserProDAOImpl implements UserProDAO{
+
+	@Override
+	public int checkEmailDuplicataion(String emailId) throws Exception {
+		int count = 0;
+		;
+		try {
+
+			Session session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(UserProfile.class);
+			criteria.add(Restrictions.eq("email", emailId));
+			count = criteria.list().size();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return count;
+	}
+
+	@Override
+	public void saveUser(UserProfile user) throws Exception {
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+		sessionFactory.getCurrentSession().saveOrUpdate(user);
+		sessionFactory.getCurrentSession().flush();
+		
+	}
+
+}

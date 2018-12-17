@@ -1,0 +1,16 @@
+package com.spring.service;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.et.security.User;
+import com.spring.form.UserForm;
+import com.spring.model.UserProfile;
+
+
+public interface UserProService {
+	
+	public UserForm registration(UserProfile user,HttpServletRequest req) throws Exception;
+	
+	public User getUser(String mobileno) ;
+
+}

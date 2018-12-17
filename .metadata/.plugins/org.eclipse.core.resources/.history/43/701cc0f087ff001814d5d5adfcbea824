@@ -1,0 +1,59 @@
+package com.et.constant;
+
+public interface PagenameConstant {
+	
+	
+	public static final String INDEX_PAGE="index";
+	
+	public static final String INBOX_PAGE="inbox";
+	
+	public static final String CHILD_INBOX_PAGE="childInboxPage";
+	
+	public static final String CHILD_REGISTRATION_PAGE="childRegistration";
+	
+	public static final String MY_FINAL_WISHES_PAGE="myFinalWishes";
+	
+	public static final String MY_FINAL_WISHES_SHARE_PAGE="myFinalWishesShareToOthers";
+	
+	public static final String SAFEKEEPING_PAGE="safekeeping";
+	
+	public static final String TIMELOCKEDCONTENT_PAGE="timeLockedContent";
+	
+	public static final String LANDING_PAGE="landing";
+	
+	public static final String MANAGE_FRIEND_PAGE="managefriend";
+	
+	public static final String ERROR_403_PAGE="errors/403";
+	
+	public static final String ERROR_404_PAGE="errors/404";
+	
+	public static final String ERROR_405_PAGE="errors/405";
+	
+	public static final String ERROR_ET_COMMON_PAGE="errors/etError";
+	
+	public static final String INDEX_PAGE_ADMIN="admin/index";
+	
+	public static final String LANDING_PAGE_ADMIN="admin/landing";
+	
+	public static final String CHANGE_PASSWORD="changePassword";
+	
+	public static final String SUCCESS_PAGE="success";
+	
+	public static final String USER_OF_PASSING_REPORT_PAGE="userOfPassingReport";
+	
+	public static final String USER_OF_PASSINGREPORT_FALSE_PAGE="userOfPassingReportFalse";
+	
+	public static final String SESSIONEXPIRED="sessionExpired";
+	
+	public static final String MY_FIRST_QUESTION_ANSWER_PAGE="myFirstQuestion";
+	
+	public static final String PAYMENT_SUCCESS="paymentsuccess";
+	
+	public static final String CHILD_EDIT_PAGE="editChildForm";
+	
+	public static final String ABOUT_PAGE="about";
+	
+	public static final String CONTACT_PAGE="contact";
+	
+
+}

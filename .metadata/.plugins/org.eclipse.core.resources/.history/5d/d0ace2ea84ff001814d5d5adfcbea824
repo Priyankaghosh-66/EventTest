@@ -1,0 +1,106 @@
+package com.spring.model;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Tajinder
+ */
+@Entity
+@Table(name = "user_role_mapping")
+
+public class UserRoleMapping extends BaseTrailDomain {
+    private static final long serialVersionUID = 1L;
+    
+    @Column(name = "createdBy")
+    private BigInteger createdBy;
+    
+    @Column(name = "createdOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+    
+    @Column(name = "updatedBy")
+    private BigInteger updatedBy;
+    
+    @Column(name = "updatedOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedOn;
+    
+    @Column(name = "email")
+    private String email;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UserProfile userId;
+
+    public UserRoleMapping() {
+    }
+
+   
+
+    public BigInteger getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(BigInteger createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public BigInteger getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(BigInteger updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public UserProfile getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UserProfile userId) {
+        this.userId = userId;
+    }
+
+   
+    
+}
+

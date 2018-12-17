@@ -1,0 +1,91 @@
+package com.spring.controller;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+
+
+
+
+import com.spring.constant.ErrorConstant;
+import com.spring.form.UserForm;
+import com.spring.model.UserProfile;
+import com.spring.service.UserProService;
+
+
+
+@Controller
+public class RegistrationController {
+	
+	@Autowired
+	private UserProService userService;
+	
+	
+	private static final Logger logger = Logger
+			.getLogger(RegistrationController.class);
+
+	@RequestMapping(value = "registration")
+	public String viewRegistration(Map<String, Object> model) {
+
+		logger.debug("  ################### CLASS REGISTRATIONCONTROLLER ### URL registration ### ENTER ### ");
+		try {
+			UserProfile userReg = new UserProfile();
+			model.put("userReg", userReg);
+			model.put("regFlag", 1);
+		} catch (Exception e) {
+			logger.error("  ################### CLASS REGISTRATIONCONTROLLER ### URL registration ### ERRROR ### "
+					+ e);
+			System.out.println("Exception " + e);
+		}
+
+		logger.debug("  ################### CLASS REGISTRATIONCONTROLLER ### URL registration ### EXIT ### ");
+		String page = "registration";
+		return page;
+	}
+
+	@RequestMapping(value = "register", method = RequestMethod.POST)
+	public String registration(@ModelAttribute("userReg") UserProfile userReg,
+			Model model, HttpServletResponse response,
+			HttpServletRequest request) {
+		logger.debug("  ################### CLASS REGISTRATIONCONTROLLER ### URL register ### ENTER ### ");
+		UserForm userform = new UserForm();
+		try {
+
+			if (userReg.getBirthday() == null) {
+
+				userform.setError(ErrorConstant.ERROR_IN_DOB);
+			} else {
+				userform = userService.registration(userReg, request);
+
+				model.addAttribute(ErrorConstant.COMMON_ERROR,
+						userform.getError());
+
+				UserProfile user = new UserProfile();
+				model.addAttribute("userReg", user);
+
+				model.addAttribute("loginForm", user);
+			}
+		} catch (Exception e) {
+			logger.error("  ################### CLASS REGISTRATIONCONTROLLER ### URL register ### ERRROR ### "
+					+ e);
+			System.out.println("Exception " + e);
+		}
+
+		logger.debug("  ################### CLASS REGISTRATIONCONTROLLER ### URL register ### EXIT ### ");
+		return "redirect:/user/?error=registration&msg=" + userform.getError();
+
+	}
+
+}
+
+

@@ -1,0 +1,57 @@
+package com.spring.model;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+
+
+
+
+/**
+ *
+ * @author Tajinder
+ */
+@Entity
+@Table(name = "user_role_mapping")
+
+public class UserRoleMapping extends BaseTrailDomain {
+    
+
+    public UserRoleMapping() {
+    }
+
+   
+
+    @ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumns(
+    {
+        @JoinColumn(updatable=true,insertable=true, name="user_id", referencedColumnName="id"),
+        @JoinColumn(updatable=true,insertable=true, name="email", referencedColumnName="email")
+     }
+    )
+	@JsonBackReference
+	private UserProfile userProfile;
+
+
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+   
+
+   
+    
+}
+

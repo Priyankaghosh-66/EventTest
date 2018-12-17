@@ -1,0 +1,69 @@
+package com.spring.security;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+
+
+public class UserAuthenticationProvider implements AuthenticationProvider{
+	
+	@Autowired
+	private com.spring.service.UserProService userService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Override
+	public Authentication authenticate(Authentication authentication)
+			throws AuthenticationException {
+		String name = authentication.getName();
+		String password = authentication.getCredentials().toString();
+
+		User user = null;
+		if (name != null && name != "" && password != null && password != "") {
+			if ((user = userService.getUser(name)) != null) {
+				if (passwordEncoder.matches(password, user.getPassword())) {
+					List<GrantedAuthority> grantedAuths = user
+							.getGrantedAuths();
+
+					if (user.getIsValidUser() != null) {
+						System.out.println("user.getIs_valid_user()");
+						if (user.getIsValidUser() == 0) {
+							System.out.println("InActive");
+							throw new AuthenticationCredentialsNotFoundException(
+									"InActive");
+						} else {
+							if (user.getBday() != null) {
+								Date bDay = user.getBday();
+								Date userDOB = null;
+								try {
+									String birthDate = new SimpleDateFormat(
+											"dd/MM/yyyy").format(bDay);
+
+									DateFormat formatter = new SimpleDateFormat(
+											"dd/MM/yyyy");
+									userDOB = (Date) formatter.parse(birthDate);
+									System.out.println(userDOB);
+
+								} catch (Exception e) {
+									System.out.println("Exception " + e);
+								}
+	}
+
+	@Override
+	public boolean supports(Class<?> authentication) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

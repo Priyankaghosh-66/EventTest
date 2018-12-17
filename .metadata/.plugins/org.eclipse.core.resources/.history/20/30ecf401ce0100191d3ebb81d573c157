@@ -1,0 +1,56 @@
+package com.spring.model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name="user_profile",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+public class UserProfile extends BaseTrailDomain implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4165804824114139504L;
+	
+	public UserProfile(){
+		
+	}
+	
+	
+    @Column(name = "salutation",nullable=false)
+    private String salutation;
+   
+    @Column(name = "fullname",nullable=false)
+    private String fullname;
+   
+    @Column(name = "email",nullable=false)
+    private String email;
+   
+    @Column(name = "mobile",nullable=false)
+    private String mobile;
+   
+    @Column(name = "password",nullable=false)
+    private String password;
+   
+    @Column(name = "birthday",nullable=false)
+    private Date birthday;
+   
+    @Column(name = "gender",nullable=false)
+    private String gender;
+    
+    @Column(name = "token")
+    private String token;
+    
+    @Column(name = "isValid_User")
+    private Integer isValidUser;
+    
+    @Column(name = "valid_token")
+    private String validToken;
+
+}

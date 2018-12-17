@@ -1,0 +1,5 @@
+package com.spring.form;
+
+public class UserForm {
+
+}

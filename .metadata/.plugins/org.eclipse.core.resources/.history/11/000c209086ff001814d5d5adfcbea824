@@ -1,0 +1,51 @@
+package com.spring.form;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.et.form.UsersFileForm;
+
+public class UserForm extends BaseForm{
+	
+private Long userId;
+	
+	
+	private String salutation;
+	
+	private String fullname;
+	
+	private String email;
+	
+	private String mobileno;
+	
+	private String gender;
+	
+	private String password;
+	
+	private Date bday;
+	
+	private Date updatedOn;
+	
+	private Date createdOn;
+	
+	private String folderType;
+	
+	/*private List<UsersFileForm> usersFileForm=new ArrayList<UsersFileForm>();*/
+
+	private String fileDescColor;
+	
+	private String fileDescStyle;
+	
+	private String fileDescSize;
+
+    private String parent_email_id=null;
+
+	private Date anniversaryDate;//Tajinder 26-10-2017 
+
+	
+	private double memoryAssignedInBytes;
+	
+
+
+}

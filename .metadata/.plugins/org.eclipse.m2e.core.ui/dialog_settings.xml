@@ -37,6 +37,8 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="D:\priyanka_wrkspc"/>
+			<item value="D:\priyanka_wrkspc\JpaExampleOfSpring"/>
 			<item value="C:\Users\Tajinder\Downloads\SpringSecurityOAuth2Example"/>
 			<item value="D:\priyanka_wrkspc\restTest"/>
 			<item value="D:\priyanka_wrkspc\RestServ"/>
@@ -53,41 +55,13 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="groupId">
-			<item value="spring"/>
+			<item value="beas"/>
 		</list>
 		<list key="package">
-			<item value="spring.JpaExampleOfSpring"/>
-			<item value="spring.com.JpaExample"/>
-			<item value="spring"/>
-			<item value="spring.SpringBootOauth"/>
-			<item value="spring.sampleJavaConfigLogin"/>
-			<item value="spring.RestTokenBackEnd"/>
-			<item value="spring.tokenGenerator"/>
-			<item value="spring.restTest"/>
-			<item value="spring.annotationex"/>
-			<item value="spring.loginPart"/>
-			<item value="spring.empty"/>
-			<item value="spring.de"/>
-			<item value="spring.test"/>
-			<item value="spring.trrr"/>
-			<item value="spring.tree"/>
+			<item value="foo"/>
 		</list>
 		<list key="artifactId">
-			<item value="JpaExampleOfSpring"/>
-			<item value="com.JpaExample"/>
-			<item value="SpringBootOauth"/>
-			<item value="sampleJavaConfigLogin"/>
-			<item value="RestTokenBackEnd"/>
-			<item value="tokenGenerator"/>
-			<item value="restTest"/>
-			<item value="annotationex"/>
-			<item value="loginPart"/>
-			<item value="empty"/>
-			<item value="de"/>
-			<item value="test"/>
-			<item value="trrr"/>
-			<item value="tree"/>
-			<item value="dre"/>
+			<item value="demoregistration"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

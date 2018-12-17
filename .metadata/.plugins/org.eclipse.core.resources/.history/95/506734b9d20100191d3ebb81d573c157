@@ -1,0 +1,28 @@
+package com.spring.model;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user_role_mapping")
+public class UserRoleMapping extends BaseTrailDomain{
+	
+	
+	 @JoinColumns({
+	        @JoinColumn(name = "user_id", referencedColumnName = "id"),
+	        @JoinColumn(name = "email", referencedColumnName = "email")})
+	    @ManyToOne
+	    private UserProfile userProfile;
+	    @JoinColumn(name = "role_id", referencedColumnName = "id")
+	    @ManyToOne(optional = false)
+	    private RoleMaster roleMaster;
+	    
+	    public UserRoleMapping(){
+			
+		}
+		
+
+}

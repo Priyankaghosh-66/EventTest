@@ -1,0 +1,99 @@
+package com.spring.service.impl;
+
+import java.util.Date;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+
+
+
+
+
+
+
+
+import com.et.constant.MessageConstant;
+import com.spring.constant.ErrorConstant;
+import com.spring.constant.PagenameConstant;
+import com.spring.dao.UserProDAO;
+import com.spring.form.UserForm;
+import com.spring.model.UserProfile;
+import com.spring.model.UserRoleMapping;
+import com.spring.service.UserProService;
+import com.spring.util.CommonUtility;
+import com.spring.util.SendMailUtil;
+
+
+@Service("userService")
+@Transactional(propagation=Propagation.REQUIRED)
+public class UserProServiceImpl implements UserProService{
+	
+	UserProDAO userProDAO;
+
+	@Transactional
+	public UserForm registration(UserProfile user, HttpServletRequest req)
+			throws Exception {
+		
+		UserForm userForm = new UserForm();
+		userForm.setPagename(PagenameConstant.INDEX_PAGE);
+		
+		if(user != null){
+			int count = userProDAO.checkEmailDuplicataion(user.getEmail());
+			if (count > 0) {
+				userForm.setError(ErrorConstant.USER_ALREADY_PRESENT_ERROR);
+
+			} else if (!user.getPassword().equals(user.getConfirmPassword())) {
+				userForm.setError(ErrorConstant.PASSWORD_CONFIRMPASSWORD_MISMATCH_ERROR);
+
+			} else {
+
+				// SEND MAIL TO CHECK VALID EMAILID START
+
+				Random rand = new Random();
+
+				int token = rand.nextInt(1000) + 1;
+				SendMailUtil send = new SendMailUtil();
+				String ip = CommonUtility.getURL(req);
+				String logo = "https://www.everlastingtestament.com/ET/images/email-logo.png";
+				String url = "<a href=" + ip
+						+ "/ET/validEmailIdCheckAfterRegistration?token="
+						+ token + "&emailId=" + user.getEmail()
+						+ ">Click here</a>";
+				String msgSubject = "Test Mail @ Everlasting Testament User Account activation mail";
+
+				String msgBody = "Dear "
+						+ user.getFullname()
+						+ " ,<p/>"
+						+ " \r\n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please click on the link below to activate your account.&nbsp;"
+						+ url + " <p/><p/>  Thanking You <p/>"
+						+ "\r\n Everlasting Testament Team<p/>" + "<img src='"
+						+ logo + "' style='width: 147px;height: 29px;'>";
+				send.mail(user.getEmail(), msgBody, msgSubject, req);
+				user.setValidToken(String.valueOf(token));
+
+				// SEND MAIL TO CHECK VALID EMAILID END
+				UserRoleMapping userRoleMapping = new UserRoleMapping();
+				userRoleMapping.setCreatedOn(new Date());
+				userRoleMapping.setUserProfile(user);
+				user.setCreatedOn(new Date());
+				user.setCreatedBy(user.getId());
+				user.setUpdatedBy(user.getId());
+				userProDao.saveUser(user);
+				userForm.setError(MessageConstant.USER_ADDED + user.getEmail());
+			
+		}
+		
+		
+	}else {
+		userForm.setError(ErrorConstant.ENTER_ALL_DETAILS_ERROR);
+	}
+	return userForm;
+	}
+}
+
+

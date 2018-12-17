@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" 
+	version="3.0" 
+	metadata-complete="true">
+	
+	<display-name>Demo Registration</display-name>
+  <listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+				/WEB-INF/root-context.xml
+				/WEB-INF/spring-security.xml
+				/WEB-INF/applicationContext.xml
+			</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>demoregistration</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/et-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>demoregistration</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404</location>
+	</error-page>
+
+	 <error-page>
+		<error-code>405</error-code>
+		<location>/jsp/errors/405</location>
+	</error-page> 
+
+<!-- <security-constraint>
+         <web-resource-collection>
+             <web-resource-name>HTTPs Test</web-resource-name>
+             <url-pattern>/*</url-pattern>
+         </web-resource-collection>
+         <user-data-constraint>
+             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+         </user-data-constraint>
+    </security-constraint> -->
+    
+<!-- <session-config>
+    <session-timeout>1</session-timeout>
+</session-config> -->
+
+<!-- <filter>
+    <filter-name>ajaxSessionExpirationFilter</filter-name>
+    <filter-class>com.et.util.AjaxTimeoutRedirectFilter</filter-class>
+    <init-param>
+        <param-name>customSessionExpiredErrorCode</param-name>
+        <param-value>901</param-value>
+    </init-param>
+</filter>
+
+<filter-mapping>
+        <filter-name>ajaxSessionExpirationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+</filter-mapping> -->
+
+</web-app>

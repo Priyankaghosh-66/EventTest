@@ -1,0 +1,153 @@
+package com.spring.model;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Tajinder
+ */
+@Entity
+@Table(name = "user_profile")
+public class UserProfile extends BaseTrailDomain implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    @Basic(optional = false)
+    @Column(name = "salutation")
+    private String salutation;
+    @Basic(optional = false)
+    @Column(name = "fullname")
+    private String fullname;
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "mobile")
+    private String mobile;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
+    @Column(name = "birthday")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birthday;
+    @Basic(optional = false)
+    @Column(name = "gender")
+    private String gender;
+    @Basic(optional = false)
+    @Column(name = "token")
+    private String token;
+    @Basic(optional = false)
+    @Column(name = "isValid_User")
+    private int isValidUser;
+    @Basic(optional = false)
+    @Column(name = "valid_token")
+    private String validToken;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<UserRoleMapping> userRoleMappingCollection;
+
+    public UserProfile() {
+    }
+
+
+   
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public void setSalutation(String salutation) {
+        this.salutation = salutation;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getIsValidUser() {
+        return isValidUser;
+    }
+
+    public void setIsValidUser(int isValidUser) {
+        this.isValidUser = isValidUser;
+    }
+
+    public String getValidToken() {
+        return validToken;
+    }
+
+    public void setValidToken(String validToken) {
+        this.validToken = validToken;
+    }
+
+    public Collection<UserRoleMapping> getUserRoleMappingCollection() {
+        return userRoleMappingCollection;
+    }
+
+    public void setUserRoleMappingCollection(Collection<UserRoleMapping> userRoleMappingCollection) {
+        this.userRoleMappingCollection = userRoleMappingCollection;
+    }
+
+    
+    
+}

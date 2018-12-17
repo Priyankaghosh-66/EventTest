@@ -1,0 +1,56 @@
+@CHARSET "ISO-8859-1";
+.field-style{
+	background-color: rgba(255, 255, 255, 1);
+    font: normal normal normal 15px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid rgba(160, 160, 159, 1);
+    color: #707070;
+    margin: 0 0 5px;
+    padding: 5px;
+    width: 100%;
+    }
+    
+    .custom-textArea{
+    bottom: 0; 
+    padding: 0 0 5px 5px;
+ 	right: 2px;
+    top: 0;
+    }
+    
+    .CntctFrm-wrapper{
+	    float: right;
+	    top: 393px;
+	    left: 657px;
+	    position: absolute;
+    }
+	  .main-wrapper-index .form-group {
+	    margin-bottom: 7px;
+	}
+		.send_btn {
+	    border: 0;
+	    color: #FFFFFF;
+	    cursor: pointer;
+	    background-color: rgba(160, 160, 159, 1);
+	    font: normal normal normal 15px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+	    padding: 5px 15px;
+	}
+		h2.font_2 {
+	    padding: 25px 0;
+	}
+		.social-link{
+		padding: 25px 0 0 0;
+	}
+	.have_ques{
+	    margin: 0;
+    line-height: normal;
+    letter-spacing: normal;
+        font: normal normal normal 22px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    color: rgba(160,160,159,1);
+        word-wrap: break-word;
+        padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+	}

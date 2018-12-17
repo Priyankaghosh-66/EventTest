@@ -1,0 +1,7 @@
+package com.spring.dao;
+
+public interface UserProDAO {
+	
+	public int checkEmailDuplicataion(String emailId) throws Exception;
+
+}

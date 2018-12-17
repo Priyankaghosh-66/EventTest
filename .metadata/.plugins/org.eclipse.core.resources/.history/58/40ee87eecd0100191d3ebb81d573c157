@@ -1,0 +1,15 @@
+package com.spring.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name="user_profile",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+public class UserProfile extends BaseTrailDomain implements Serializable{
+	
+	
+
+}

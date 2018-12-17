@@ -1,0 +1,57 @@
+package com.spring.model;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+
+import com.et.model.UserProfile;
+
+/**
+ *
+ * @author Tajinder
+ */
+@Entity
+@Table(name = "user_role_mapping")
+
+public class UserRoleMapping extends BaseTrailDomain {
+    
+
+    public UserRoleMapping() {
+    }
+
+   
+
+    @ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumns(
+    {
+        @JoinColumn(updatable=true,insertable=true, name="user_id", referencedColumnName="id"),
+        @JoinColumn(updatable=true,insertable=true, name="email", referencedColumnName="email")
+     }
+    )
+	@JsonBackReference
+	private UserProfile userProfile;
+
+   
+
+   
+    
+}
+

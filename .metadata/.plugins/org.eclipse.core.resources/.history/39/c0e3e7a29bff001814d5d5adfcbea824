@@ -1,0 +1,13 @@
+package com.spring.service;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.spring.form.UserForm;
+import com.spring.model.UserProfile;
+
+
+public interface UserProService {
+	
+	public UserForm registration(UserProfile user,HttpServletRequest req) throws Exception;
+
+}
