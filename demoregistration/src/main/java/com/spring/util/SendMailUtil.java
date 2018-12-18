@@ -62,6 +62,7 @@ public class SendMailUtil {
 			isMailSent=true;
 		} catch (MessagingException e) {
 			isMailSent=false;
+			System.out.println("inside mailSent psrt");
 			throw new RuntimeException(e);
 		}
 		

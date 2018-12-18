@@ -1,0 +1,159 @@
+package com.spring.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.spring.dao.UserProDAO;
+import com.spring.model.UserProfile;
+
+public class UserProDAOImpl implements UserProDAO{
+	
+	SessionFactory sessionFactory;
+	
+	public UserProDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public int checkEmailDuplicataion(String emailId) throws Exception {
+		int count = 0;
+		System.out.println("emailId"+emailId);
+		;
+		try {
+			System.out.println("inside dao try");
+			Session session = sessionFactory.getCurrentSession();
+			System.out.println("emailId"+emailId);
+			Criteria criteria = session.createCriteria(UserProfile.class);
+			criteria.add(Restrictions.eq("email", emailId));
+			System.out.println(criteria.list().size());
+			count = criteria.list().size();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return count;
+	}
+
+	@Override
+	public void saveUser(UserProfile user) {
+		System.out.println("inside saveUser"+user.getSalutation()+user.getFullname()+user.getEmail()+user.getMobile()+user.getPassword()+user.getBirthday()+user.getGender()+user.getToken()+user.getIsValidUser()+user.getValidToken()+user.getCreatedBy()+user.getCreatedOn()+user.getUpdatedBy()+user.getUpdatedOn());
+		try{user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+		sessionFactory.getCurrentSession().saveOrUpdate(user);
+		/*sessionFactory.getCurrentSession().flush();*/
+		}catch(Exception e){
+			System.out.println("exception is:"+e);
+		}
+		
+	}
+	
+	@Override
+	public Long getUserIdFromEmailId(String emailId) throws Exception {
+
+		Long userId = 0L;
+		try {
+			String hql = "SELECT DISTINCT u.id AS userId   FROM "
+					+ " UserProfile u " + " WHERE  u.email = :emailId  ";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			query.setParameter("emailId", emailId);
+			List results = query.list();
+
+			if (results != null)
+				userId = (Long) results.get(0);
+
+		} catch (Exception e) {
+			System.out
+					.println(" ### EXCEPTION IN GETUSERIDFROMEMAILID ###" + e);
+		}
+
+		return userId;
+	}
+
+	@Override
+	public UserProfile getUserDetailsByUserIdAndEmailUId(Long userId,
+			String emailId) throws Exception {
+		try {
+			UserProfile userProfile = new UserProfile();
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "Select u FROM UserProfile u WHERE u.id = :userId and u.email = :email";
+
+			Query query = session.createQuery(hql);
+			query.setParameter("userId", userId);
+			query.setParameter("email", emailId);
+			userProfile = (UserProfile) query.uniqueResult();
+
+			return userProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public int updateValidEmailIdCheckAfterRegistration(String emailId,
+			String token) throws Exception {
+		
+		int result = 0;
+		String hql = "UPDATE UserProfile set isValid_User = :is_valid_user"
+				+ " WHERE email = :email";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_valid_user", 1);
+		query.setParameter("email", emailId);
+		query.executeUpdate();
+		result = 1;
+		return result;
+		
+	}
+
+	@Override
+	public UserProfile getUserDetails(String emailId) throws Exception {
+		
+			try {
+				UserProfile userProfile = new UserProfile();
+				Session session = sessionFactory.getCurrentSession();
+				String hql = "FROM UserProfile u WHERE u.email = :email";
+
+				Query query = session.createQuery(hql);
+				query.setParameter("email", emailId);
+				userProfile = (UserProfile) query.uniqueResult();
+
+				return userProfile;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		
+	}
+
+	@Override
+	public UserProfile getUserByEmailId(String emailId) throws Exception {
+		
+			try {
+				UserProfile userProfile = new UserProfile();
+				Session session = sessionFactory.getCurrentSession();
+				String hql = "FROM UserProfile u WHERE u.email = :email";
+
+				Query query = session.createQuery(hql);
+				query.setParameter("email", emailId);
+				userProfile = (UserProfile) query.uniqueResult();
+
+				return userProfile;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+
+	
+
+
+}

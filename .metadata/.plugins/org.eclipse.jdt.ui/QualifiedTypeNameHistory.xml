@@ -15,7 +15,6 @@
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
 <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Propagation"/>
-<fullyQualifiedTypeName name="com.spring.constant.PagenameConstant"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="com.spring.dao.UserProDAO"/>
 <fullyQualifiedTypeName name="com.spring.util.SendMailUtil"/>
@@ -23,10 +22,12 @@
 <fullyQualifiedTypeName name="com.spring.model.UserRoleMapping"/>
 <fullyQualifiedTypeName name="com.spring.constant.MessageConstant"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+<fullyQualifiedTypeName name="com.spring.form.UserForm"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.spring.service.UserProService"/>
 <fullyQualifiedTypeName name="com.spring.model.UserProfile"/>
-<fullyQualifiedTypeName name="com.spring.form.UserForm"/>
 <fullyQualifiedTypeName name="com.spring.constant.ErrorConstant"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.spring.constant.PagenameConstant"/>
 <fullyQualifiedTypeName name="com.spring.security.User"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 </qualifiedTypeNameHistroy>

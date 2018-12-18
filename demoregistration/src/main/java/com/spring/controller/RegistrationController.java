@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.spring.constant.ErrorConstant;
 import com.spring.form.UserForm;
 import com.spring.model.UserProfile;
@@ -130,6 +133,30 @@ public class RegistrationController {
 		logger.debug("  ################### CLASS REGISTRATIONCONTROLLER ### URL register ### EXIT ### ");
 		return "redirect:/user/?error=registration&msg=" + userform.getError();
 
+	}
+	
+	@RequestMapping(value = "/validEmailIdCheckAfterRegistration", method = RequestMethod.GET)
+	public ModelAndView validEmailIdCheckAfterRegistration(
+			@RequestParam(value = "emailId") String emailId,
+			@RequestParam(value = "token") String token, Model modal) {
+
+		logger.debug("  ################### CLASS WITHOUTLOGINACCESSCONTROLLER ### URL /validEmailIdCheckAfterRegistration ### ENTER ### ");
+		ModelAndView model = new ModelAndView();
+
+		try {
+			UserForm userForm = userService.validEmailIdCheckAfterRegistration(
+					emailId, token);
+			model.addObject("message", userForm.getError());
+			model.setViewName(userForm.getPagename());
+
+		} catch (Exception e) {
+
+			logger.error("  ################### CLASS WITHOUTLOGINACCESSCONTROLLER ### /validEmailIdCheckAfterRegistration ### ERRROR ### "
+					+ e);
+			System.out.println("Exception " + e);
+		}
+		logger.debug("  ################### CLASS WITHOUTLOGINACCESSCONTROLLER ### URL /validEmailIdCheckAfterRegistration ### EXIT ### ");
+		return model;
 	}
 
 }

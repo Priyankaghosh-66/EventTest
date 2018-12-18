@@ -742,3 +742,532 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-17 19:23:12.505
 !MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-17 19:31:49.539
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-17 19:31:59.207
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-17 19:32:04.634
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-17 19:32:04.748
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-17 19:35:25.880
+!MESSAGE Server processes have been terminated.
+!SESSION 2018-12-18 10:14:16.265 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.7.0_75
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:23:00.069
+!MESSAGE 4 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:23:00.288
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 10:23:03.022
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 10:23:22.252
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 10:23:22.315
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 10:23:43.086
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:40:45.095
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2018-12-18 10:45:01.145
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 10:45:01.588
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 10:45:01.603
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842785 2018-12-18 10:45:01.603
+!MESSAGE Server Shutdown Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:46:10.235
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 10:46:11.235
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 10:46:16.722
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 10:46:16.815
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:51:28.093
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 10:52:53.133
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:53:16.966
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 10:53:17.060
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 10:53:31.847
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 10:53:37.305
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 10:53:37.430
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:01:48.474
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 11:02:25.855
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 11:02:33.717
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 11:02:39.187
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 11:02:39.296
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:09:21.710
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 11:10:00.181
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 11:10:07.794
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 11:10:13.266
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 11:10:13.391
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:15:22.120
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:21:43.860
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 11:22:22.639
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 11:22:52.705
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 11:23:08.818
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 11:23:08.990
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2018-12-18 11:27:31.785
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 11:27:32.483
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:27:52.170
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 11:27:52.262
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 11:28:31.385
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 11:28:36.915
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 11:28:37.044
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 11:33:03.807
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:02:25.384
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 12:02:26.964
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 12:02:32.449
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 12:02:32.558
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:06:25.699
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 12:06:27.301
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 12:06:54.792
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 12:07:00.283
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 12:07:00.424
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:24:50.482
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:26:17.340
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:26:34.066
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:30:18.715
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:33:33.085
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:33:41.822
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:34:47.350
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:35:53.364
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:37:03.965
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:37:41.071
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:38:11.236
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:41:17.537
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:46:26.742
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:48:30.807
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:53:25.006
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:54:02.462
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 12:55:00.648
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:55:16.595
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 12:55:16.689
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 12:55:49.168
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 12:56:01.981
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 12:56:02.090
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 12:56:22.673
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 13:30:52.618
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 13:58:19.913
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 13:58:20.883
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 13:58:55.948
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 13:58:56.073
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 13:59:16.671
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:03:46.530
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:04:37.942
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 14:04:48.222
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 14:05:41.143
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 14:05:46.597
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 14:05:46.707
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:19:09.214
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:19:57.781
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:21:02.532
+!MESSAGE 2 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 14:21:04.435
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 14:21:18.417
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 14:21:23.841
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 14:21:23.974
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 14:30:29.707
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:20:56.992
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:21:26.619
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:21:56.605
+!MESSAGE 4 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:22:38.336
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 15:25:39.820
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:34:13.587
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 15:34:13.788
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 15:35:23.422
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 15:36:02.501
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 15:36:02.641
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 15:36:23.334
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:11:28.110
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 16:11:43.129
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 16:13:06.614
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 16:13:29.992
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 16:13:30.102
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 16:13:50.671
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:18:45.632
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 16:18:52.695
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:19:19.415
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:19:19.540
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 16:19:30.512
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 16:19:35.988
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 16:19:36.113
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:33:13.841
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 16:34:42.315
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:34:57.082
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:34:57.176
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 16:35:09.364
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 16:35:14.830
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 16:35:14.939
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 2 0 2018-12-18 16:35:35.470
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server still not ready to be shown in browser. Aborting delay.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 16:39:12.082
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 16:39:25.731
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 16:39:34.678
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 16:39:40.207
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 16:39:40.329
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:03:09.040
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2018-12-18 17:03:17.733
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 17:03:18.168
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 17:03:18.183
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842785 2018-12-18 17:03:18.183
+!MESSAGE Server Shutdown Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 17:03:30.833
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 17:03:36.397
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 17:03:36.507
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:31:56.913
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 17:32:03.689
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 17:32:40.159
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 17:32:56.341
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 17:32:56.466
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:35:16.076
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 17:35:17.464
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:35:37.469
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:35:37.565
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 17:36:00.076
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 17:36:05.626
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 17:36:05.751
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 17:56:33.089
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 17:56:35.452
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 17:56:45.864
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 17:56:51.293
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 17:56:51.401
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 18:00:41.713
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2018-12-18 18:00:43.358
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 18:00:57.339
+!MESSAGE Module demoregistration published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 18:00:57.433
+!MESSAGE Module spring-web-4.0.4.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2018-12-18 18:01:07.174
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2018-12-18 18:01:12.729
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2018-12-18 18:01:12.838
+!MESSAGE Module demoregistration on JBoss 7.1 Runtime Server not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 18:04:00.918
+!MESSAGE 1 files modified in module demoregistration
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2018-12-18 18:04:03.611
+!MESSAGE 1 files modified in module demoregistration

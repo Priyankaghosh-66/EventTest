@@ -27,11 +27,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
+
+
+
+
+
 import com.spring.constant.ErrorConstant;
 import com.spring.constant.MessageConstant;
 import com.spring.constant.PagenameConstant;
 import com.spring.dao.UserProDAO;
 import com.spring.form.UserForm;
+import com.spring.model.RoleMaster;
 import com.spring.model.UserProfile;
 import com.spring.model.UserRoleMapping;
 import com.spring.security.User;
@@ -52,16 +59,21 @@ public class UserProServiceImpl implements UserProService{
 		
 		UserForm userForm = new UserForm();
 		userForm.setPagename(PagenameConstant.INDEX_PAGE);
-		System.out.println("user"+user.getFullname());
+		System.out.println("user"+user.getEmail());
 		
 		if(user != null){
+			System.out.println("inside if of user");
+			System.out.println("user"+user.getEmail());
+			/*try{*/
+				/*System.out.println("count prev");
 			int count = userProDAO.checkEmailDuplicataion(user.getEmail());
 			System.out.println("count"+count);
 			if (count > 0) {
 				System.out.println(ErrorConstant.USER_ALREADY_PRESENT_ERROR);
 				userForm.setError(ErrorConstant.USER_ALREADY_PRESENT_ERROR);
 
-			} else if (!user.getPassword().equals(user.getConfirmPassword())) {
+			} else */
+			if (!user.getPassword().equals(user.getConfirmPassword())) {
 				System.out.println(user.getPassword().equals(user.getConfirmPassword()));
 				userForm.setError(ErrorConstant.PASSWORD_CONFIRMPASSWORD_MISMATCH_ERROR);
 
@@ -77,7 +89,7 @@ public class UserProServiceImpl implements UserProService{
 				String ip = CommonUtility.getURL(req);
 				String logo = "https://www.everlastingtestament.com/ET/images/email-logo.png";
 				String url = "<a href=" + ip
-						+ "/ET/validEmailIdCheckAfterRegistration?token="
+						+ "/demoregistration/validEmailIdCheckAfterRegistration?token="
 						+ token + "&emailId=" + user.getEmail()
 						+ ">Click here</a>";
 				String msgSubject = "Test Mail @ Everlasting Testament User Account activation mail";
@@ -89,21 +101,47 @@ public class UserProServiceImpl implements UserProService{
 						+ url + " <p/><p/>  Thanking You <p/>"
 						+ "\r\n Everlasting Testament Team<p/>" + "<img src='"
 						+ logo + "' style='width: 147px;height: 29px;'>";
+				System.out.println(user.getEmail()+"2"+ msgBody+"3"+ msgSubject+"4"+ req);
 				send.mail(user.getEmail(), msgBody, msgSubject, req);
+				System.out.println(String.valueOf(token));
 				user.setValidToken(String.valueOf(token));
 
 				// SEND MAIL TO CHECK VALID EMAILID END
+
 				UserRoleMapping userRoleMapping = new UserRoleMapping();
 				userRoleMapping.setCreatedOn(new Date());
+
+				RoleMaster role = new RoleMaster();
+				role.setId(1l);
+				System.out.println(role.getId());
+				/*double memoryInBytes = CommonConstant.MEMORY_ASSIGNEDIN_BYTES_FOR_MEMBER_TYPE_FREE;*/
+				List<UserRoleMapping> roleList = new ArrayList<UserRoleMapping>();
+				roleList.add(userRoleMapping);
+
+				userRoleMapping.setRoleMaster(role);
+				System.out.println("role"+role.getId());
+				System.out.println("user Data"+user.getSalutation()+user.getFullname()+user.getEmail()+user.getMobile()+user.getPassword()+user.getBirthday()+user.getGender()+user.getToken()+user.getIsValidUser()+user.getValidToken()+user.getCreatedBy()+user.getCreatedOn()+user.getUpdatedBy()+user.getUpdatedOn());
+				
+				if(user.getPassword() != null){
+					System.out.println("going inside save");
+				userProDAO.saveUser(user);
+				}else{
+					System.out.println("Not going inside save");
+				}
 				userRoleMapping.setUserProfile(user);
+				System.out.println("user id"+user.getId());
+				user.setUserRoles(roleList);
+				System.out.println("tole list"+roleList);
 				user.setCreatedOn(new Date());
 				user.setCreatedBy(user.getId());
 				user.setUpdatedBy(user.getId());
-				userProDAO.saveUser(user);
 				userForm.setError(MessageConstant.USER_ADDED + user.getEmail());
-			
 		}
-		
+			/*}catch(Exception exception)
+			{
+				System.out.println(exception);
+			}
+		*/
 		
 	}else {
 		userForm.setError(ErrorConstant.ENTER_ALL_DETAILS_ERROR);
@@ -154,6 +192,33 @@ public class UserProServiceImpl implements UserProService{
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public UserForm validEmailIdCheckAfterRegistration(String emailId,
+			String token) throws Exception {
+		UserForm userForm = new UserForm();
+		userForm.setPagename(PagenameConstant.SUCCESS_PAGE);
+		userForm.setError(ErrorConstant.INVALID_EMAILID_CHECK_AFTER_REGISTRATION_SUCCESS);
+		UserProfile userProfile = userProDAO.getUserByEmailId(emailId);
+
+		try {
+			if (userProfile != null) {
+				if (userProfile.getValidToken() != null) {
+					if (userProfile.getValidToken().equals(token)) {
+						int result = userProDAO
+								.updateValidEmailIdCheckAfterRegistration(
+										emailId, token);
+						if (result == 1) {
+							userForm.setError(ErrorConstant.VALID_EMAILID_CHECK_AFTER_REGISTRATION_SUCCESS);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Exception " + e);
+		}
+		return userForm;
 	}
 
 	

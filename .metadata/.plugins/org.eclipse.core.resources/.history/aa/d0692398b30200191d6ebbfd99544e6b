@@ -1,0 +1,1626 @@
+package com.et.dao.impl;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import com.et.constant.CommonConstant;
+import com.et.constant.ETQueryContant;
+import com.et.constant.MessageConstant;
+import com.et.dao.UserProDAO;
+import com.et.form.ShareUserForm;
+import com.et.form.UsersFileForm;
+import com.et.model.FriendListModel;
+import com.et.model.InitialReportOfPassing;
+import com.et.model.MyLastWishesRecipients;
+import com.et.model.UserDeathCertificate;
+import com.et.model.UserMenuMappingModel;
+import com.et.model.UserProfile;
+import com.et.model.UserRoleMapping;
+import com.et.model.UserUpgradationDetails;
+import com.et.model.UsersAlbum;
+import com.et.model.UsersFile;
+import com.et.model.UsersShareFile;
+
+//@Repository("userProDao")
+public class UserProDAOImpl implements UserProDAO {
+
+	List<Long> getFriendAndRequestSendUserList = null;
+	String getFriendAndRequestSendUserListString = "";
+
+	SessionFactory sessionFactory;
+
+	public UserProDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public Long getUserIdFromEmailId(String emailId) throws Exception {
+
+		Long userId = 0L;
+		try {
+			String hql = "SELECT DISTINCT u.id AS userId   FROM "
+					+ " UserProfile u " + " WHERE  u.email = :emailId  ";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			query.setParameter("emailId", emailId);
+			List results = query.list();
+
+			if (results != null)
+				userId = (Long) results.get(0);
+
+		} catch (Exception e) {
+			System.out
+					.println(" ### EXCEPTION IN GETUSERIDFROMEMAILID ###" + e);
+		}
+
+		return userId;
+	}
+
+	@Override
+	public UserProfile getUserByEmailId(String emailID) throws Exception {
+		try {
+			UserProfile userProfile = new UserProfile();
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "FROM UserProfile u WHERE u.email = :email";
+
+			Query query = session.createQuery(hql);
+			query.setParameter("email", emailID);
+			userProfile = (UserProfile) query.uniqueResult();
+
+			return userProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public UserProfile getUserDetailsByUserId(Long userId) throws Exception {
+		try {
+			UserProfile userProfile = new UserProfile();
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "FROM UserProfile u WHERE u.id = :userId and u.is_valid_user=1 ";
+
+			Query query = session.createQuery(hql);
+			query.setParameter("userId", userId);
+			userProfile = (UserProfile) query.uniqueResult();
+			return userProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public UserProfile getUserDetailsByUserIdAndEmailUId(Long userId,
+			String emailId) {
+		try {
+			UserProfile userProfile = new UserProfile();
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "Select u FROM UserProfile u WHERE u.id = :userId and u.email = :email";
+
+			Query query = session.createQuery(hql);
+			query.setParameter("userId", userId);
+			query.setParameter("email", emailId);
+			userProfile = (UserProfile) query.uniqueResult();
+
+			return userProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<UserProfile> getChildList(Long userId, String emailId)
+			throws Exception {
+		try {
+			List<UserProfile> userList = (List<UserProfile>) sessionFactory
+					.getCurrentSession().createCriteria(UserProfile.class)
+					.add(Restrictions.eq("parent_email_id", emailId)).list();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean updateuserImage(Long userId, String email,
+			String salutation, String fullname, String mobileno, Date bday,
+			Date anniversaryDate, String profileImage) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		if (profileImage == null) {
+			String hqlUpdate = "update UserProfile c set c.fullname = :fullname,c.salutation = :salutation,c.mobileno = :mobileno,c.bday = :bday,c.anniversaryDate = :anniversaryDate  where c.id = :userId";
+			int updatedEntities = session.createQuery(hqlUpdate)
+					.setLong("userId", userId).setString("fullname", fullname)
+					.setString("salutation", salutation)
+					.setString("mobileno", mobileno).setDate("bday", bday)
+					.setDate("anniversaryDate", anniversaryDate)
+
+					.executeUpdate();
+			isUpdated = true;
+		} else {
+			String hqlUpdate = "update UserProfile c set c.profileImage = :profileImage,c.fullname = :fullname,c.salutation = :salutation,c.mobileno = :mobileno,c.bday = :bday,c.anniversaryDate = :anniversaryDate  where c.id = :userId";
+			int updatedEntities = session.createQuery(hqlUpdate)
+					.setLong("userId", userId).setString("fullname", fullname)
+					.setString("salutation", salutation)
+					.setString("mobileno", mobileno).setDate("bday", bday)
+					.setDate("anniversaryDate", anniversaryDate)
+					.setString("profileImage", profileImage)
+
+					.executeUpdate();
+			isUpdated = true;
+		}
+
+		return isUpdated;
+	}
+
+	@Override
+	public boolean uploadCoverPic(Long userId, String coverImage,
+			String topposition, int imageNumber) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UserProfile c set c.coverImage"
+				+ imageNumber + " = :coverImage ,c.topposition" + imageNumber
+				+ "= :topposition where c.id = :userId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("userId", userId).setString("coverImage", coverImage)
+				.setString("topposition", topposition)
+
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<UserRoleMapping> getUserRoles(Long id) throws Exception {
+		List<UserRoleMapping> userList = (List<UserRoleMapping>) sessionFactory
+				.getCurrentSession().createCriteria(UserRoleMapping.class)
+				.createAlias("userProfile", "userProfile")
+				.add(Restrictions.eq("userProfile.id", id)).list();
+		return userList;
+	}
+
+	@Override
+	public void saveUser(UserProfile user) throws Exception {
+
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+		sessionFactory.getCurrentSession().saveOrUpdate(user);
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public Long saveChild(UserProfile user) throws Exception {
+
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+		Long id = (Long) sessionFactory.getCurrentSession().save(user);
+		sessionFactory.getCurrentSession().flush();
+		return id;
+	}
+
+	@Override
+	public int checkUserNameDuplicataion(String emailId) {
+		int count = 0;
+		;
+		try {
+
+			Session session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(UserProfile.class);
+			criteria.add(Restrictions.eq("email", emailId));
+			count = criteria.list().size();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return count;
+	}
+
+	@Override
+	public void saveUsersFile(UsersFile usersFile) throws Exception {
+
+		sessionFactory.getCurrentSession().saveOrUpdate(usersFile);
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	@Override
+	public List<UsersFile> getUserFilesList(Long userId, String folderType)
+			throws Exception {
+		List<UsersFile> userList = (List<UsersFile>) sessionFactory
+				.getCurrentSession().createCriteria(UsersFile.class)
+				.createAlias("userDetails", "userDetails")
+				.addOrder(Order.desc("updatedOn"))
+				.add(Restrictions.eq("userDetails.id", userId))
+				.add(Restrictions.eq("isDeleted", 0))
+				.add(Restrictions.eq("folderType", folderType)).list();
+		return userList;
+	}
+
+	@Override
+	public UsersFile getFilesDetails(Long fileId) throws Exception {
+		UsersFile userList = (UsersFile) sessionFactory.getCurrentSession()
+				.createCriteria(UsersFile.class)
+				.add(Restrictions.eq("id", fileId)).uniqueResult();
+
+		return userList;
+	}
+
+	@Override
+	public boolean deleteUsersFile(Long fileId, Integer isDeleted)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.isDeleted = :isDeleted where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId).setInteger("isDeleted", isDeleted)
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean editDescriptionOfFile(UsersFileForm usersFileForm)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.fileDesc = :fileDesc,c.fileName = :fileName,c.fileDescColor=:fileDescColor,c.fileDescStyle=:fileDescStyle,c.fileDescSize=:fileDescSize,c.date_of_release=:date_of_release,c.is_time_locked_content_mail_sent=:is_time_locked_content_mail_sent where c.id = :fileId";
+		int updatedEntities = session
+				.createQuery(hqlUpdate)
+				.setLong("fileId", usersFileForm.getFileId())
+				.setString("fileDesc", usersFileForm.getFileDesc())
+				.setString("fileName", usersFileForm.getFileName())
+				.setString("fileDescColor", usersFileForm.getFileDescColor())
+				.setString("fileDescSize", usersFileForm.getFileDescSize())
+				.setString("fileDescStyle", usersFileForm.getFileDescStyle())
+				.setDate("date_of_release", usersFileForm.getDate_of_release())
+				.setInteger("is_time_locked_content_mail_sent",
+						usersFileForm.getIs_time_locked_content_mail_sent())
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean editAlbumFile(UsersFileForm usersFileForm) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersAlbum c set c.fileDesc = :fileDesc,c.fileName = :fileName,c.fileDescColor=:fileDescColor,c.fileDescStyle=:fileDescStyle,c.fileDescSize=:fileDescSize where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", usersFileForm.getFileId())
+				.setString("fileDesc", usersFileForm.getFileDesc())
+				.setString("fileName", usersFileForm.getFileName())
+				.setString("fileDescColor", usersFileForm.getFileDescColor())
+				.setString("fileDescSize", usersFileForm.getFileDescSize())
+				.setString("fileDescStyle", usersFileForm.getFileDescStyle())
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean moveFile(Long fileId, String folderTypeTo, String filePath)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.folderType = :folderType , c.filePath =: filePath where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId)
+				.setString("folderType", folderTypeTo)
+				.setString("filePath", filePath).executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean rotateImage(Long fileId, String isRotated) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.isRotated = :isRotated  where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId).setString("isRotated", isRotated)
+
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public List<UserMenuMappingModel> getUserInboxMenuList(Long userId,
+			String emailId) throws Exception {
+		List<UserMenuMappingModel> userList = (List<UserMenuMappingModel>) sessionFactory
+				.getCurrentSession().createCriteria(UserMenuMappingModel.class)
+				.createAlias("userDetails", "userDetails")
+				.addOrder(Order.desc("updatedOn"))
+				.add(Restrictions.eq("user_id", userId))
+				.add(Restrictions.eq("emailId", emailId)).list();
+		return userList;
+	}
+
+	@Override
+	public boolean saveUserInboxMenu(UserMenuMappingModel userMenuMappingModel)
+			throws Exception {
+
+		boolean isUpdated = false;
+		sessionFactory.getCurrentSession().saveOrUpdate(userMenuMappingModel);
+		sessionFactory.getCurrentSession().flush();
+		isUpdated = true;
+		return true;
+	}
+
+	@Override
+	public List<UserProfile> getUserList(Long loginUserId) throws Exception {
+
+		String hql = "select c.id,c.fullname,c.email,c.profileImage from UserProfile c where c.id!="
+				+ loginUserId + " and is_death_confirm!=1";
+
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<UserProfile>) query.list();
+		return userList;
+	}
+
+	@Override
+	public List<UsersAlbum> getAlbumFileList(Long albumId) throws Exception {
+
+		List<UsersAlbum> userList = (List<UsersAlbum>) sessionFactory
+				.getCurrentSession().createCriteria(UsersAlbum.class)
+				.add(Restrictions.eq("album_id", albumId))
+				.add(Restrictions.ne("is_deleted", 1)).list();
+		return userList;
+	}
+
+	@Override
+	public UsersAlbum getAlbumFileDetails(Long albumFileId) throws Exception {
+
+		UsersAlbum userList = (UsersAlbum) sessionFactory.getCurrentSession()
+				.createCriteria(UsersAlbum.class)
+				.add(Restrictions.eq("id", albumFileId))
+				.add(Restrictions.ne("is_deleted", 1)).uniqueResult();
+		return userList;
+	}
+
+	@Override
+	public List<UserProfile> getUserListForParticularFileId(Long loginUserId,
+			String parent_email_id, Long fileid, String searchText)
+			throws Exception {
+
+		String searcchCriteria = "";
+		if (searchText != null) {
+			if (!searchText.equals(CommonConstant.SEARCH_BY_ALL))
+				searcchCriteria = " AND c.fullname like '%" + searchText + "%'";
+		}
+		String hql = " SELECT " + " c.id , " + "  c.fullname , "
+				+ "  c.email , " + "  c.profileImage  , "
+				+ " usf.share_by_userid as share_by_userid " + "  FROM "
+				+ "  friend_list FL,user_profile c LEFT OUTER JOIN "
+				+ "   users_share_file usf  " + "  ON "
+				+ "  usf.share_to_userid=c.id " + " AND usf.is_deleted!=1 "
+				+ "  AND usf.file_id="
+				+ fileid
+				+ " WHERE c.id!="
+				+ loginUserId
+				+ " AND c.is_death_confirm!=1 "
+				+ " AND FL.status = 1  AND FL.friend_reuquested_to =  "
+				+ loginUserId
+				+ " AND FL.friend_reuquested_by =  c.id "
+				+ searcchCriteria
+				+ " UNION "
+				+ " SELECT "
+				+ " c.id , "
+				+ "  c.fullname , "
+				+ "  c.email , "
+				+ "  c.profileImage  , "
+				+ " usf.share_by_userid as share_by_userid "
+				+ "  FROM "
+				+ "  friend_list FL,user_profile c LEFT OUTER JOIN "
+				+ "   users_share_file usf  "
+				+ "  ON "
+				+ "  usf.share_to_userid=c.id "
+				+ " AND usf.is_deleted!=1 "
+				+ "  AND usf.file_id="
+				+ fileid
+				+ " WHERE c.id!="
+				+ loginUserId
+				+ " AND c.is_death_confirm!=1 "
+				+ " AND FL.status = 1  AND FL.friend_reuquested_by =  "
+				+ loginUserId
+				+ " AND FL.friend_reuquested_to =  c.id "
+				+ searcchCriteria
+
+		;
+
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<UserProfile>) query.list();
+		return userList;
+	}
+
+	@Override
+	public boolean saveUserListForShareFileId(
+			List<UsersShareFile> usersShareFileList) throws Exception {
+		Session session = null;
+		boolean isUpdated = false;
+		try {
+
+			for (int i = 0; i < usersShareFileList.size(); i++) {
+				sessionFactory.getCurrentSession().save(
+						usersShareFileList.get(i));
+				if (i % 50 == 0) { // Same as the JDBC batch size
+					sessionFactory.getCurrentSession().flush();
+					sessionFactory.getCurrentSession().clear();
+				}
+			}
+
+			isUpdated = true;
+		} catch (HibernateException e) {
+			if (sessionFactory.getCurrentSession().getTransaction() != null)
+				sessionFactory.getCurrentSession().getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return isUpdated;
+	}
+
+	@Override
+	public boolean updateShareType(Long fileId, Integer shareType)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.shareType = :shareType,c.shareDate =:shareDate  where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId).setInteger("shareType", shareType)
+				.setDate("shareDate", new Date()).executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean updateShareTypeForAlbumFile(Long albumFileId,
+			Integer shareType) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersAlbum c set c.shareType = :shareType,c.shareDate =:shareDate  where c.id = :albumFileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("albumFileId", albumFileId)
+				.setInteger("shareType", shareType)
+				.setDate("shareDate", new Date()).executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public boolean updateAlsoPartOfEulogy(Long fileId,
+			Integer is_added_to_eulogy) throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersFile c set c.is_added_to_eulogy = :is_added_to_eulogy  where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId)
+				.setInteger("is_added_to_eulogy", is_added_to_eulogy)
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public List<ShareUserForm> getShareFileList(Long userId) throws Exception {
+
+		List<ShareUserForm> finalList = new ArrayList<ShareUserForm>();
+
+		String hql1 = ETQueryContant.sql_file_list_for_home_page;
+
+		Query query1 = sessionFactory.getCurrentSession().createSQLQuery(hql1)
+				.setLong("userId", userId);
+		List<ShareUserForm> publicShareFileList = new ArrayList<ShareUserForm>();
+
+		List<Object[]> rows = query1.list();
+
+		for (Object[] row : rows) {
+			ShareUserForm shareUserForm = new ShareUserForm();
+
+			// USERID: COLUMN POSITION 0
+			shareUserForm.setShare_by_user_id(Long.parseLong(String
+					.valueOf((BigInteger) row[0])));
+
+			// USER NAME: COLUMN POSITION 1
+			shareUserForm.setShare_by_user_Name((String) row[1]);
+
+			// USER PROFILE IMAGE: COLUMN POSITION 2
+			shareUserForm.setUserProfileImage((String) row[2]);
+
+			// FILE ID: COLUMN POSITION 3
+			if (Integer.parseInt(String.valueOf((BigInteger) row[14])) == 0) {
+				shareUserForm.setFileId(Long.parseLong((String) row[3]));
+			} else {
+				shareUserForm.setAnswerGroupId((String) row[3]);
+			}
+
+			// FILE NAME : COLUMN POSITION 4
+			shareUserForm.setFileName((String) row[4]);
+
+			// FILE DESCRIPTION: COLUMN POSITION 5
+			shareUserForm.setFileDesc((String) row[5]);
+
+			// FILE PATH: COLUMN POSITION 6
+			shareUserForm.setFilePath((String) row[6]);
+
+			// FILE CREATED ON: COLUMN POSITION 7
+			shareUserForm.setCreatedDate((Date) row[7]);
+
+			// SHARE DATE: COLUMN POSITION 8
+			if (row[8] != null)
+				shareUserForm.setShareDate((Date) row[8]);
+
+			// FILE DES COLOR: COLUMN POSITION 9
+			shareUserForm.setFileDescColor((String) row[9]);
+
+			// FILE DES STYLE: COLUMN POSITION 10
+			shareUserForm.setFileDescStyle((String) row[10]);
+
+			// FILE DES SIZE: COLUMN POSITION 11
+			shareUserForm.setFileDescSize((String) row[11]);
+
+			// FILE SHARE TYPE: COLUMN POSITION 12
+			if (row[12] != null)
+				shareUserForm.setShareType((int) row[12]);
+
+			// FILE SHARE TYPE: COLUMN POSITION 13
+			if (row[13] != null) {
+				shareUserForm.setIs_Album(Integer.valueOf((String) row[13]));
+
+				if (Integer.valueOf((String) row[13]) == 1) {
+					List<UsersAlbum> usersAlbumList = getAlbumFileList(shareUserForm
+							.getFileId());
+					shareUserForm.setUsersAlbum(usersAlbumList);
+				}
+			}
+
+			// FILE SHARE TYPE: COLUMN POSITION 14
+			if (row[14] != null)
+				shareUserForm.setIs_video(Integer.parseInt(String
+						.valueOf((BigInteger) row[14])));
+
+			// IS TIME LOCKED CONTENT QUESTION ANSWER: COLUMN POSITION 15
+			shareUserForm.setIsTimeLockedContentQAns(Integer.parseInt(String
+					.valueOf((BigInteger) row[15])));
+
+			// VIDEO THUMBNAIL IMAGE PATH : COLUMN POSITION 16
+			if (row[16] != null)
+				shareUserForm.setVideo_thumbnail((String) row[16]);
+
+			publicShareFileList.add(shareUserForm);
+		}
+
+		finalList.addAll(publicShareFileList);
+
+		return finalList;
+	}
+
+	@Override
+	public List<UserProfile> getShareContactList(Long loginUserId)
+			throws Exception {
+
+		List<UserProfile> getShareContactList = new ArrayList<UserProfile>();
+		String hql = "SELECT DISTINCT  u from UsersShareFile uf,UserProfile u "
+				+
+
+				"WHERE uf.share_by_userid= " + loginUserId
+				+ " AND u.id=uf.share_to_userid AND uf.is_deleted!=1 ";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		getShareContactList = (List<UserProfile>) query.list();
+
+		return getShareContactList;
+	}
+
+	/********************* forgot password start ***********************/
+	@Override
+	public int updatetoken(String emailId, String token, Date expirydate)
+			throws Exception {
+
+		String hql = "UPDATE UserProfile set token = :token ,"
+				+ "expiryDate = :expirydate" + " WHERE email = :email";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("token", token);
+		query.setParameter("email", emailId);
+		query.setParameter("expirydate", expirydate);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public int updatePassword(UserProfile user) throws Exception {
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+		String hql = "UPDATE UserProfile set password = :password"
+				+ " WHERE email = :email";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("password", user.getPassword());
+		query.setParameter("email", user.getEmail());
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	/********************* forgot password end ***********************/
+
+	@Override
+	public boolean saveMyLastWishesRecipients(
+			List<MyLastWishesRecipients> myLastWishesRecipients)
+			throws Exception {
+
+		Session session = null;
+		boolean isUpdated = false;
+		try {
+
+			for (int i = 0; i < myLastWishesRecipients.size(); i++) {
+				sessionFactory.getCurrentSession().save(
+						myLastWishesRecipients.get(i));
+				if (i % 50 == 0) { // Same as the JDBC batch size
+					sessionFactory.getCurrentSession().flush();
+					sessionFactory.getCurrentSession().clear();
+				}
+			}
+			isUpdated = true;
+		} catch (HibernateException e) {
+			if (sessionFactory.getCurrentSession().getTransaction() != null)
+				sessionFactory.getCurrentSession().getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return isUpdated;
+	}
+
+	@Override
+	public List<MyLastWishesRecipients> getMyLastWishesRecipientsList(
+			Long userId) throws Exception {
+		List<MyLastWishesRecipients> userList = (List<MyLastWishesRecipients>) sessionFactory
+				.getCurrentSession()
+				.createCriteria(MyLastWishesRecipients.class)
+				.addOrder(Order.desc("updatedOn"))
+				.add(Restrictions.eq("my_final_wishes_user_id", userId))
+				.add(Restrictions.eq("isDeleted", 0)).list();
+		return userList;
+	}
+
+	@Override
+	public boolean deleteMyLastWishesRecipients(
+			List<Long> deleteMyLastWishesRecipients, Long userId)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+		String deleteMyLastWishesRecipientString = null;
+
+		for (int i = 0; i < deleteMyLastWishesRecipients.size(); i++) {
+
+			if (deleteMyLastWishesRecipientString == null)
+				deleteMyLastWishesRecipientString = deleteMyLastWishesRecipients
+						.get(i).toString();
+
+			else
+				deleteMyLastWishesRecipientString = deleteMyLastWishesRecipientString
+						+ "," + deleteMyLastWishesRecipients.get(i).toString();
+		}
+		String hqlUpdate = "update MyLastWishesRecipients c set c.isDeleted = :isDeleted where c.my_final_wishes_user_id = :my_final_wishes_user_id and c.id IN ("
+				+ deleteMyLastWishesRecipientString + ")";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("my_final_wishes_user_id", userId)
+				.setInteger("isDeleted", 1).executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	@Override
+	public Long initiateReportOfUserPassing(
+			InitialReportOfPassing initialReportOfPassing) throws Exception {
+
+		boolean isUpdated = false;
+		Long id = (Long) sessionFactory.getCurrentSession().save(
+				initialReportOfPassing);
+		sessionFactory.getCurrentSession().flush();
+		isUpdated = true;
+		return id;
+
+	}
+
+	@Override
+	public int getUserReceipentCount(Long userId, String emailId)
+			throws Exception {
+
+		int totalReceipentCount = 0;
+
+		String hql = " SELECT  COUNT(DISTINCT UP.id ) AS totalReceipent "
+				+ " FROM friend_list FL,User_Profile UP     "
+				+ " WHERE FL.status = "
+				+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+				+ "  AND FL.friend_reuquested_to =  " + userId
+				+ " AND FL.friend_reuquested_by =  UP.id " + " UNION "
+				+ " SELECT  COUNT(DISTINCT UP.id ) AS totalReceipent "
+				+ " FROM friend_list FL,User_Profile UP     "
+				+ " WHERE FL.status = "
+				+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+				+ " AND FL.friend_reuquested_by =  " + userId
+				+ " AND FL.friend_reuquested_to =  UP.id ";
+
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+		List<BigInteger> rows = query.list();
+		for (BigInteger row : rows) {
+			Long countLong = Long.parseLong(String.valueOf(row));
+
+			if (countLong != null)
+				totalReceipentCount = totalReceipentCount
+						+ countLong.intValue();
+
+		}
+
+		return totalReceipentCount;
+	}
+
+	@Override
+	public int updateUserProfileForReportOfPsngInitiated(
+			int is_report_of_passing_initiated,
+			int percentage_of_confirmation_of_death,
+			int total_number_of_receipents, String email, long userId,
+			Long initiateReportOfUserPassingId) throws Exception {
+
+		String hql = "UPDATE UserProfile set is_report_of_passing_initiated =:is_report_of_passing_initiated ,"
+				+ "percentage_of_confirmation_of_death =:percentage_of_confirmation_of_death,date_of_report_of_passing =:date_of_report_of_passing, "
+				+ "total_number_of_receipents =:total_number_of_receipents,  initial_report_of_passing_id =:initiateReportOfUserPassingId "
+				+ ",is_first_report_of_passing_cycle_open =:is_first_report_of_passing_cycle_open "
+				+
+
+				",total_number_of_response_from_receipent =:total_number_of_response_from_receipent "
+				+ ",is_second_report_of_passing_cycle_open =:is_second_report_of_passing_cycle_open "
+				+ ",second_phase_report_of_passing_expirary_date =:second_phase_report_of_passing_expirary_date "
+				+
+
+				" WHERE email =:email and id =:userId ";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_report_of_passing_initiated",
+				is_report_of_passing_initiated);
+		query.setParameter("percentage_of_confirmation_of_death",
+				percentage_of_confirmation_of_death);
+		query.setParameter("total_number_of_receipents",
+				total_number_of_receipents);
+
+		query.setParameter("total_number_of_response_from_receipent", 0);
+		query.setParameter("is_second_report_of_passing_cycle_open", 0);
+
+		query.setParameter("date_of_report_of_passing", new Date());
+		query.setParameter("is_first_report_of_passing_cycle_open", 1);
+		query.setParameter("email", email);
+		query.setParameter("userId", userId);
+		query.setParameter("initiateReportOfUserPassingId",
+				initiateReportOfUserPassingId);
+		query.setParameter("second_phase_report_of_passing_expirary_date", null);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public int checkIfAlreadyInitialReportOfPassingInitiatedForUser(
+			String emailId, long userId) throws Exception {
+
+		int count = 0;
+
+		String hql = "SELECT COUNT(*) AS count   FROM "
+				+ "InitialReportOfPassing u " + "WHERE  u.decsased_email_id='"
+				+ emailId + "' and u.decsased_user_id=" + userId
+				+ " and u.initial_report_of_passing_expirary_date > NOW() ";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		List results = query.list();
+		Long countLong = (Long) results.get(0);
+
+		if (countLong != null)
+			count = countLong.intValue();
+
+		return count;
+	}
+
+	@Override
+	public int updateInitialReportOfPassing(String emailId, String token)
+			throws Exception {
+
+		String hql = "UPDATE InitialReportOfPassing set is_response_coming_from_decsased_email_id =:is_response_coming_from_decsased_email_id, is_report_of_passing_cycle_open =:is_report_of_passing_cycle_open "
+				+ " WHERE decsased_email_id =:decsased_email_id and initial_report_of_passing_token =:initial_report_of_passing_token";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_response_coming_from_decsased_email_id", 1);
+		query.setParameter("is_report_of_passing_cycle_open", 0);
+		query.setParameter("decsased_email_id", emailId);
+		query.setParameter("initial_report_of_passing_token",
+				Integer.parseInt(token));
+
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+
+		result = updateUserProfileForReportOfPsngInitiatedClosed(emailId);
+
+		return result;
+	}
+
+	public int updateUserProfileForReportOfPsngInitiatedClosed(String emailId)
+			throws Exception {
+
+		String hql = "UPDATE UserProfile set is_first_report_of_passing_cycle_open =:is_first_report_of_passing_cycle_open "
+
+				+ " WHERE email =:email ";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_first_report_of_passing_cycle_open", 0);
+		query.setParameter("email", emailId);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	public int updateUserFileIsViewableFlag(Long userId) throws Exception {
+
+		String hql = "UPDATE UsersFile set is_ViewableForOther =:is_ViewableForOther ,updatedOn=:updatedOn where user_id=:userId and folderType=:folderType";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_ViewableForOther", 1);
+		query.setParameter("updatedOn", new Date());
+		query.setParameter("userId", userId);
+		query.setParameter("folderType", CommonConstant.FOLDER_TYPE_LEGAL_DOC);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	public int deleteExistingShareFileReceipentList(Long file_id,
+			Long share_by_userid) throws Exception {
+
+		String hql = "UPDATE UsersShareFile set is_deleted =:is_deleted,updatedOn=:updatedOn where file_id=:file_id and share_by_userid=:share_by_userid";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_deleted", 1);
+		query.setParameter("updatedOn", new Date());
+		query.setParameter("file_id", file_id);
+		query.setParameter("share_by_userid", share_by_userid);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public int deleteExistingShareFileReceipentListForAlbumFile(
+			Long album_file_id, Long share_by_userid) throws Exception {
+
+		String hql = "UPDATE UsersShareFile set is_deleted =:is_deleted,updatedOn=:updatedOn where file_id=:album_file_id and share_by_userid=:share_by_userid";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_deleted", 1);
+		query.setParameter("updatedOn", new Date());
+		query.setParameter("album_file_id", album_file_id);
+		query.setParameter("share_by_userid", share_by_userid);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public Long saveUserDeathCertificate(
+			UserDeathCertificate userDeathCertificate) throws Exception {
+
+		boolean isUpdated = false;
+		Long id = (Long) sessionFactory.getCurrentSession().save(
+				userDeathCertificate);
+		sessionFactory.getCurrentSession().flush();
+		isUpdated = true;
+		return id;
+
+	}
+
+	public int confirmDeathCeriticateUploadedByAdmin(Long userId)
+			throws Exception {
+
+		String hql = "UPDATE UserProfile set is_death_certificate_uploaded =:is_death_certificate_uploaded "
+
+				+ " WHERE  id =:userId ";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_death_certificate_uploaded", 1);
+		query.setParameter("userId", userId);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public List<UserProfile> searchuser(Long loginUserId, String searchBy,
+			String searchText, String userType) throws Exception {
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		String hql = "";
+		if (searchBy != null && userType != null && searchText != null) {
+			searchText = searchText.toLowerCase();
+			if (userType.equals(CommonConstant.USER_TYPE_DEATH)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage, c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and is_death_confirm=1   and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded  from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and is_death_confirm=1 and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and is_death_confirm=1";
+
+				}
+			} else if (userType.equals(CommonConstant.USER_TYPE_ALIVE)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ "  and c.is_valid_user=1 and is_death_confirm=0 and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ "  and c.is_valid_user=1 and is_death_confirm=0 and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and is_death_confirm=0";
+
+				}
+			} else if (userType.equals(CommonConstant.USER_TYPE_ALL)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1   and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId + " and c.is_valid_user=1 ";
+
+				}
+			}
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+			if (query.list().size() > 0)
+				userList = (List<UserProfile>) query.list();
+		}
+		return userList;
+	}
+
+	@Override
+	public List<UserProfile> searchFriendListForPassingReport(Long loginUserId,
+			String searchBy, String searchText, String userType)
+			throws Exception {
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		String hql = "";
+		if (searchBy != null && userType != null && searchText != null) {
+			searchText = searchText.toLowerCase();
+			if (userType.equals(CommonConstant.USER_TYPE_ALIVE)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND  UP.is_death_confirm!=1 AND FL.friend_reuquested_to =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  AND LOWER(UP.fullname) like '%"
+							+ searchText
+							+ "%'"
+							+ " AND FL.friend_reuquested_by =  UP.id "
+							+ " UNION "
+							+ " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND UP.is_death_confirm!=1 AND FL.friend_reuquested_by =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  AND LOWER(UP.fullname) like '%"
+							+ searchText
+							+ "%'"
+							+ " AND FL.friend_reuquested_to =  UP.id ";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND  UP.is_death_confirm!=1 AND FL.friend_reuquested_to =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  AND LOWER(UP.email) like '%"
+							+ searchText
+							+ "%'"
+							+ " AND FL.friend_reuquested_by =  UP.id "
+							+ " UNION "
+							+ " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND UP.is_death_confirm!=1 AND FL.friend_reuquested_by =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  AND LOWER(UP.email) like '%"
+							+ searchText
+							+ "%'"
+							+ " AND FL.friend_reuquested_to =  UP.id ";
+				} else {
+					hql = " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND  UP.is_death_confirm!=1 AND FL.friend_reuquested_to =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  "
+							+ " AND FL.friend_reuquested_by =  UP.id "
+							+ " UNION "
+							+ " SELECT  UP.id,UP.fullname,UP.email,UP.profileImage "
+							+ " FROM friend_list FL,User_Profile UP     "
+							+ " WHERE FL.status = "
+							+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+							+ " AND UP.is_death_confirm!=1 AND FL.friend_reuquested_by =  "
+							+ loginUserId
+							+ " AND UP.is_valid_user=1  "
+							+ " AND FL.friend_reuquested_to =  UP.id ";
+				}
+			}
+		}
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<UserProfile>) query.list();
+		return userList;
+	}
+
+	@Override
+	public String sendFriendRequest(FriendListModel friendListModel)
+			throws Exception {
+		String msg = MessageConstant.ERROR_COMMON_SEND_FRIEND_REQUEST;
+		try {
+			String hql = " SELECT  FL.status,FL.friend_reuquested_to,FL.friend_reuquested_by "
+					+ " FROM friend_list FL    "
+					+ " WHERE (FL.status = "
+					+ CommonConstant.FRIEND_REQUEST_WAITING
+					+ " OR FL.status =  "
+					+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+					+ " ) AND FL.friend_reuquested_to =  "
+					+ friendListModel.getFriend_reuquested_to()
+					+ " AND FL.friend_reuquested_by =   "
+					+ friendListModel.getFriend_reuquested_by()
+					+ "  UNION "
+					+ "  SELECT  FL.status,FL.friend_reuquested_to,FL.friend_reuquested_by "
+					+ "  FROM friend_list FL "
+					+ " WHERE (FL.status = "
+					+ CommonConstant.FRIEND_REQUEST_WAITING
+					+ " OR FL.status =  "
+					+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+					+ " ) AND FL.friend_reuquested_by =  "
+					+ friendListModel.getFriend_reuquested_by()
+					+ " AND FL.friend_reuquested_to =  "
+					+ friendListModel.getFriend_reuquested_to();
+			Query query = sessionFactory.getCurrentSession()
+					.createSQLQuery(hql);
+
+			if (query.list().size() > 0) {
+				List<Object[]> userStatus = (List<Object[]>) query.list();
+				for (Object[] singleUserStatus : userStatus) {
+					Integer status = (Integer) singleUserStatus[0];
+					Long friend_reuquested_to = Long.valueOf(String
+							.valueOf((BigInteger) singleUserStatus[1]));
+					Long friend_reuquested_by = Long.valueOf(String
+							.valueOf((BigInteger) singleUserStatus[2]));
+					if (status == CommonConstant.FRIEND_REQUEST_ACCEPTED) {
+						msg = MessageConstant.ERROR_ALREADY_FRIEND;
+					} else {
+						if (friend_reuquested_by.equals(friendListModel
+								.getFriend_reuquested_by())) {
+							msg = MessageConstant.ERROR_ALREADY_FRIEND_REQUEST_SENT_BY_YOU;
+						}
+						if (friend_reuquested_to.equals(friendListModel
+								.getFriend_reuquested_by())) {
+							msg = MessageConstant.ERROR_ALREADY_FRIEND_REQUEST_SENT_TO_YOU;
+						}
+					}
+				}
+
+			} else {
+				sessionFactory.getCurrentSession().save(friendListModel);
+				sessionFactory.getCurrentSession().flush();
+				sessionFactory.getCurrentSession().clear();
+				msg = MessageConstant.MSG_FRIND_REQUEST_SENT_SUCCESSFULLY;
+				getFriendAndRequestSendUserList = getFriendAndRequestSendUserList(friendListModel
+						.getFriend_reuquested_by());
+				getFriendAndRequestSendUserListString = String
+						.valueOf(friendListModel.getFriend_reuquested_by());
+				for (int i = 0; i < getFriendAndRequestSendUserList.size(); i++) {
+
+					getFriendAndRequestSendUserListString = getFriendAndRequestSendUserListString
+							+ "," + getFriendAndRequestSendUserList.get(i);
+
+				}
+
+			}
+		} catch (HibernateException e) {
+			if (sessionFactory.getCurrentSession().getTransaction() != null)
+				sessionFactory.getCurrentSession().getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return msg;
+	}
+
+	@Override
+	public List<UserProfile> getFriendRequestList(Long userId,
+			int friend_request_type) throws Exception {
+
+		String hqlCondition = "";
+		if (friend_request_type != CommonConstant.FRIEND_REQUEST_SHOW_ALL)
+			hqlCondition = " AND fl.status=  " + friend_request_type;
+
+		String hql = "SELECT " + " c.id , " + "  c.fullname , "
+				+ "  c.email , " + "  c.profileImage  , "
+				+ " fl.status AS friend_status,  "
+				+ " fl.id AS friend_request_id,  " + "  c.birthday  , "
+				+ "  c.mobileno   " + " FROM  " + "  user_profile c ,  "
+				+ "   friend_list fl  " + "  WHERE "
+				+ "    c.is_valid_user=1 AND fl.friend_reuquested_by=c.id "
+				+ " AND fl.friend_reuquested_to=  " + userId
+				+ " AND c.is_death_confirm!=1 " + hqlCondition
+				+ " order by fl.createdOn DESC ";
+
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<UserProfile>) query.list();
+		return userList;
+	}
+
+	@Override
+	public List<UserProfile> searchUserToSendFriendRequest(Long loginUserId,
+			String searchBy, String searchText, String userType)
+			throws Exception {
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		String hql = "";
+		if (searchBy != null && userType != null && searchText != null) {
+			searchText = searchText.toLowerCase();
+			if (userType.equals(CommonConstant.USER_TYPE_DEATH)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage, c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=1 and is_valid_user=1 and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded  from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=1 and is_valid_user=1 and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=1 and is_valid_user=1 ";
+
+				}
+			} else if (userType.equals(CommonConstant.USER_TYPE_ALIVE)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=0 and is_valid_user=1 and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=0 and is_valid_user=1 and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and is_death_confirm=0 and is_valid_user=1 ";
+
+				}
+			} else if (userType.equals(CommonConstant.USER_TYPE_ALL)) {
+				if (searchBy.equals(CommonConstant.SEARCH_BY_USER_NAME)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1  and LOWER(c.fullname) like '%"
+							+ searchText + "%'";
+				} else if (searchBy.equals(CommonConstant.SEARCH_BY_EMAIL_ID)) {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId
+							+ " and c.is_valid_user=1 and LOWER(c.email) like '%"
+							+ searchText + "%'";
+
+				} else {
+					hql = "select c.id,c.fullname,c.email,c.profileImage,c.is_report_of_passing_initiated,c.percentage_of_confirmation_of_death,c.total_number_of_receipents,c.date_of_report_of_passing,c.is_death_confirm,c.is_death_certificate_uploaded from UserProfile c where c.id!="
+							+ loginUserId + " and c.is_valid_user=1 ";
+
+				}
+			}
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+			if (query.list().size() > 0)
+				userList = (List<UserProfile>) query.list();
+		}
+		return userList;
+	}
+
+	@Override
+	public int updateFriendRequestStatus(Long frndRequestId, int status,
+			Long userId) throws Exception {
+
+		String hql = "UPDATE FriendListModel set status =:status "
+
+				+ " WHERE  id =:frndRequestId and friend_reuquested_to =:friend_reuquested_to ";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("status", status);
+		query.setParameter("frndRequestId", frndRequestId);
+		query.setParameter("friend_reuquested_to", userId);
+		int result = query.executeUpdate();
+
+		getFriendAndRequestSendUserList = getFriendAndRequestSendUserList(userId);
+		getFriendAndRequestSendUserListString = String.valueOf(userId);
+		for (int i = 0; i < getFriendAndRequestSendUserList.size(); i++) {
+
+			getFriendAndRequestSendUserListString = getFriendAndRequestSendUserListString
+					+ "," + getFriendAndRequestSendUserList.get(i);
+
+		}
+
+		System.out.println("Rows affected: " + result);
+		return result;
+	}
+
+	@Override
+	public UserProfile showUserDetailsToCheckFriendStatus(Long loginuserId,
+			Long userIdToCheckFrnd, int frndStatusToCheck) throws Exception {
+
+		UserProfile userProfile = new UserProfile();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "Select u FROM UserProfile u WHERE u.id = :userIdToCheckFrnd ";
+
+		Query query = session.createQuery(hql);
+		query.setParameter("userIdToCheckFrnd", userIdToCheckFrnd);
+		userProfile = (UserProfile) query.uniqueResult();
+
+		FriendListModel friendForm = checkIsFrnd(loginuserId,
+				userIdToCheckFrnd, frndStatusToCheck);
+
+		if (friendForm != null) {
+			if (userProfile != null) {
+				userProfile.setFnd_request_id(friendForm.getId());
+				userProfile.setFnd_request_status(friendForm.getStatus());
+
+				if (friendForm.getFriend_reuquested_by() == userProfile.getId())
+					userProfile.setIs_frnd_requested_by_me(false);
+
+				else
+					userProfile.setIs_frnd_requested_by_me(true);
+			}
+		}
+
+		return userProfile;
+
+	}
+
+	public FriendListModel checkIsFrnd(Long loginuserId,
+			Long userIdToCheckFrnd, int frndStatusToCheck) throws Exception {
+
+		FriendListModel friendForm = new FriendListModel();
+
+		String hql = " SELECT fl FROM FriendListModel fl WHERE (fl.friend_reuquested_by="
+				+ loginuserId
+				+ " AND fl.friend_reuquested_to="
+				+ userIdToCheckFrnd
+				+ " AND fl.status!="
+				+ CommonConstant.FRIEND_REQUEST_REJECTED
+				+ " AND fl.status!="
+				+ CommonConstant.FRIEND_REQUEST_UNFRIEND
+				+ ") OR (fl.friend_reuquested_by="
+				+ userIdToCheckFrnd
+				+ " AND fl.friend_reuquested_to="
+				+ loginuserId
+				+ " AND fl.status!="
+				+ CommonConstant.FRIEND_REQUEST_REJECTED
+				+ " AND fl.status!="
+				+ CommonConstant.FRIEND_REQUEST_UNFRIEND
+				+ " )";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		friendForm = (FriendListModel) query.uniqueResult();
+
+		return friendForm;
+	}
+
+	@Override
+	public List<UserProfile> getFriendList(Long userId, int friend_status)
+			throws Exception {
+
+		String hql = " SELECT  UP.email,UP.profileImage,UP.id,UP.fullname,UP.mobileno,UP.birthday "
+				+ " FROM friend_list FL,User_Profile UP     "
+				+ " WHERE FL.status = "
+				+ friend_status
+				+ "  AND FL.friend_reuquested_to =  "
+				+ userId
+				+ " AND FL.friend_reuquested_by =  UP.id "
+				+ " UNION "
+				+ " SELECT  UP.email,UP.profileImage,UP.id,UP.fullname,UP.mobileno,UP.birthday "
+				+ " FROM friend_list FL,User_Profile UP     "
+				+ " WHERE FL.status = "
+				+ friend_status
+				+ " AND FL.friend_reuquested_by =  "
+				+ userId
+				+ " AND FL.friend_reuquested_to =  UP.id ";
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<UserProfile>) query.list();
+		return userList;
+	}
+
+	@Override
+	public boolean saveUsersAlbum(UsersFile usersFile,
+			List<UsersAlbum> allUsersAlbum) throws Exception {
+		Long generatedId = 0L;
+		boolean isUpdated = false;
+		Session sessionAlbum = null;
+		try {
+
+			sessionAlbum = sessionFactory.openSession();
+			generatedId = (Long) sessionAlbum.save(usersFile);
+			if (generatedId != 0L) {
+				for (int t = 0; t < allUsersAlbum.size(); t++) {
+					try {
+						UsersAlbum usersAlbum = allUsersAlbum.get(t);
+						usersAlbum.setAlbum_id(generatedId);
+						sessionAlbum.save(usersAlbum);
+						sessionAlbum.flush();
+						sessionAlbum.clear();
+					} catch (Exception e) {
+						System.out.println("EXception in saveUsersAlbum" + e);
+						e.printStackTrace();
+					}
+				}
+			}
+			isUpdated = true;
+		} catch (Exception e) {
+
+			System.out.println("Exception in saveUsersAlbum => " + e);
+			e.printStackTrace();
+		} finally {
+
+			if (sessionAlbum != null)
+				sessionAlbum.close();
+		}
+		return isUpdated;
+	}
+
+	@Override
+	public boolean deleteAlbumFile(Long fileId, Integer isDeleted)
+			throws Exception {
+		boolean isUpdated = false;
+		Session session = sessionFactory.getCurrentSession();
+
+		String hqlUpdate = "update UsersAlbum c set c.is_deleted = :is_deleted where c.id = :fileId";
+		int updatedEntities = session.createQuery(hqlUpdate)
+				.setLong("fileId", fileId).setInteger("is_deleted", isDeleted)
+				.executeUpdate();
+		isUpdated = true;
+		return isUpdated;
+	}
+
+	/******************* ASSOCIATED USER START (TAJINDER) **********************/
+	@Override
+	public HashMap<String, Object> getAssociatedFriendList(Long user_id,
+			int friend_status, int type, int pageIndexReq, String searchFor)
+			throws Exception {
+
+		HashMap<String, Object> associatedUserHashMap = new LinkedHashMap<String, Object>();
+		int pageIndex = CommonConstant.PAGEINDEX_FOR_ASSOCIATED_USER;
+		int numberOfRecordsPerPage = CommonConstant.NUMBEROFRECORDSPERPAGE_FOR_ASSOCIATED_USER;
+		int totalNumberOfRecords = CommonConstant.TOTALNUMBEROFRECORDS_FOR_ASSOCIATED_USER;
+		int totalNumberOfPages = CommonConstant.TOTALNUMBEROFPAGES_FOR_ASSOCIATED_USER;
+
+		if (pageIndexReq != 0)
+			pageIndex = pageIndexReq;
+
+		int s = (pageIndex * numberOfRecordsPerPage) - numberOfRecordsPerPage;
+
+		List<UserProfile> userList = new ArrayList<UserProfile>();
+		try {
+
+			if (getFriendAndRequestSendUserList == null) {
+
+				getFriendAndRequestSendUserList = getFriendAndRequestSendUserList(user_id);
+				getFriendAndRequestSendUserListString = String.valueOf(user_id);
+				for (int i = 0; i < getFriendAndRequestSendUserList.size(); i++) {
+
+					getFriendAndRequestSendUserListString = getFriendAndRequestSendUserListString
+							+ "," + getFriendAndRequestSendUserList.get(i);
+
+				}
+			}
+
+			String hql = ETQueryContant.hql_friendRequest_to
+					+ getFriendAndRequestSendUserListString
+					+ ETQueryContant.hql_friendRequest_to1 + " UNION "
+					+ ETQueryContant.hql_friendRequest_by
+					+ getFriendAndRequestSendUserListString
+					+ ETQueryContant.hql_friendRequest_by1;
+			Query query = sessionFactory.getCurrentSession()
+					.createSQLQuery(hql)
+					.setLong("friend_status", friend_status)
+					.setLong("user_id", user_id);
+			if (searchFor != null)
+				if (searchFor
+						.equals(CommonConstant.SEARCH_FOR_INITIAL_FOR_ASSOCIATED_USER)) {
+					totalNumberOfRecords = query.list().size();
+					totalNumberOfPages = (totalNumberOfRecords
+							+ numberOfRecordsPerPage - 1)
+							/ numberOfRecordsPerPage;
+				}
+			associatedUserHashMap.put(
+					CommonConstant.HASHMAP_KEY_PAGENUMBER_FOR_ASSOCIATED_USER,
+					totalNumberOfPages);
+			query.setFirstResult(s).setMaxResults(numberOfRecordsPerPage);
+			if (query.list().size() > 0) {
+				userList = (List<UserProfile>) query.list();
+				boolean value = userList
+						.removeAll(getFriendAndRequestSendUserList);
+				System.out.println(value);
+			}
+			associatedUserHashMap.put(
+					CommonConstant.HASHMAP_KEY_USER_FOR_ASSOCIATED_USER,
+					userList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return associatedUserHashMap;
+
+	}
+
+	public List<Long> getFriendAndRequestSendUserList(Long userId)
+			throws Exception {
+
+		String hql = " SELECT   UP.id"
+				+ " FROM friend_list FL,User_Profile UP      "
+				+ " WHERE (FL.status = "
+				+ CommonConstant.FRIEND_REQUEST_WAITING + " OR FL.status =  "
+				+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+				+ " ) AND FL.friend_reuquested_to =   " + userId
+				+ "  AND FL.friend_reuquested_by =  UP.id " + " UNION "
+				+ " SELECT   UP.id"
+				+ "  FROM friend_list FL,User_Profile UP     "
+				+ " WHERE (FL.status = "
+				+ CommonConstant.FRIEND_REQUEST_WAITING + " OR FL.status =  "
+				+ CommonConstant.FRIEND_REQUEST_ACCEPTED
+				+ ") AND FL.friend_reuquested_by =  " + userId
+				+ " AND FL.friend_reuquested_to =  UP.id ";
+
+		List<Long> userList = new ArrayList<Long>();
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);
+
+		if (query.list().size() > 0)
+			userList = (List<Long>) query.list();
+		return userList;
+	}
+
+	@Override
+	public boolean saveUserUpgradation(UserUpgradationDetails upgradation,
+			String userType, double memoryInBytes, String emailId, Long id)
+			throws Exception {
+		boolean isUpdated = false;
+
+		try {
+
+			sessionFactory.getCurrentSession().save(upgradation);
+
+			String hqlUpdate = "update UserProfile c set c.memoryAssignedInBytes = :memoryInBytes,c.memberType = :memberType  where c.id = :userId";
+			int updatedEntities = sessionFactory.getCurrentSession()
+					.createQuery(hqlUpdate).setLong("userId", id)
+					.setDouble("memoryInBytes", memoryInBytes)
+					.setString("memberType", userType).executeUpdate();
+
+			sessionFactory.getCurrentSession().flush();
+			isUpdated = true;
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isUpdated;
+
+	}
+
+	@Override
+	public UserProfile getChildDetailsByUserId(Long userId) throws Exception {
+		try {
+			UserProfile userProfile = new UserProfile();
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "FROM UserProfile u WHERE u.id = :id";
+
+			Query query = session.createQuery(hql);
+			query.setParameter("id", userId);
+			userProfile = (UserProfile) query.uniqueResult();
+
+			return userProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public void childEdit(UserProfile user) throws Exception {
+
+		String hqlUpdate = "update UserProfile c set c.memoryAssignedInGb = :memoryInGB ,c.memoryAssignedInMb = :memoryInMb , "
+				+ " c.mobileno = :mobileno, c.memoryAssignedInBytes = :memoryInBytes, c.bday = :bDay, "
+				+ " c.salutation = :salutation, c.fullname = :fullname  "
+				+ "  where c.id = :userId";
+		int updatedEntities = sessionFactory.getCurrentSession()
+				.createQuery(hqlUpdate).setLong("userId", user.getId())
+				.setDouble("memoryInGB", user.getMemoryAssignedInGb())
+				.setDouble("memoryInMb", user.getMemoryAssignedInMb())
+				.setDouble("memoryInBytes", user.getMemoryAssignedInBytes())
+				.setDate("bDay", user.getBday())
+				.setString("salutation", user.getSalutation())
+				.setString("mobileno", user.getMobileno())
+				.setString("fullname", user.getFullname())
+
+				.executeUpdate();
+
+		sessionFactory.getCurrentSession().flush();
+	}
+
+	public int updateValidEmailIdCheckAfterRegistration(String emailId,
+			String token) throws Exception {
+		int result = 0;
+		String hql = "UPDATE UserProfile set is_valid_user = :is_valid_user"
+				+ " WHERE email = :email";
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("is_valid_user", 1);
+		query.setParameter("email", emailId);
+		query.executeUpdate();
+		result = 1;
+		return result;
+	}
+}
