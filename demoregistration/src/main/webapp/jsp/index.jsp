@@ -387,7 +387,7 @@ window.addEventListener('popstate', function () {
  </div>
 
            
-          <form:input path="gender" type="hidden" placeholder="gender" name="gender" value="m" class="form-control inp ploaceholderinp" /> 
+          <form:input path="gender" type="hidden" placeholder="gender" name="gender" value="f" class="form-control inp ploaceholderinp" /> 
   <div class="form-group">
 
         <div class="date">

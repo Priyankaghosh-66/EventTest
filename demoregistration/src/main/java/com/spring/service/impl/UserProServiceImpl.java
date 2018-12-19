@@ -7,11 +7,13 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 
@@ -51,6 +53,7 @@ import com.spring.util.SendMailUtil;
 @Transactional(propagation=Propagation.REQUIRED)
 public class UserProServiceImpl implements UserProService{
 	
+	@Autowired
 	UserProDAO userProDAO;
 
 	@Transactional
